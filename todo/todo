@@ -1,12 +1,12 @@
 add scripts for partial download and update (filter)
+add AMO export part
+move AMO data to DB
 add logs
 optimize scripts structure
-create readme file
 write tests
-add AMO export part
-add PowerBi templates
-move AMO data to DB
 add models for views
+add PowerBi templates
+update readme file
 capture and bypass exceptions like error_report - need to test
 add the project to GitHub - Done
 move secrets to OS variables - Done
