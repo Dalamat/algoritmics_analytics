@@ -1,0 +1,6 @@
+sqlalchemy
+alembic
+psycopg2
+requests
+tqdm
+python-telegram-bot

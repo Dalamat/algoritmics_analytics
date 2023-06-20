@@ -1,0 +1,48 @@
+Updating EVENTS FULL
+Logged in successfully
+Downloading: 6.96MB [12:13, 9.97kB/s]Traceback (most recent call last):
+  File "C:\Users\Dmitriy\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\response.py", line 710, in _error_catcher
+    yield
+  File "C:\Users\Dmitriy\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\response.py", line 1080, in read_chunked
+    chunk = self._handle_chunk(amt)
+            ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Dmitriy\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\response.py", line 1031, in _handle_chunk
+    returned_chunk = self._fp._safe_read(self.chunk_left)  # type: ignore[union-attr]
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Dmitriy\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 633, in _safe_read
+    raise IncompleteRead(data, amt-len(data))
+http.client.IncompleteRead: IncompleteRead(32111 bytes read, 657 more expected)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Dmitriy\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 816, in generate
+    yield from self.raw.stream(chunk_size, decode_content=True)
+  File "C:\Users\Dmitriy\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\response.py", line 937, in stream
+    yield from self.read_chunked(amt, decode_content=decode_content)
+  File "C:\Users\Dmitriy\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\response.py", line 1065, in read_chunked
+    with self._error_catcher():
+  File "C:\Users\Dmitriy\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 155, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "C:\Users\Dmitriy\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\response.py", line 727, in _error_catcher
+    raise ProtocolError(f"Connection broken: {e!r}", e) from e
+urllib3.exceptions.ProtocolError: ('Connection broken: IncompleteRead(32111 bytes read, 657 more expected)', IncompleteRead(32111 bytes read, 657 more expected))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Cream\Scripts\python\update_tables.py", line 28, in <module>
+    main(sys.argv)
+    ^^^^^^^^^^^^^^
+  File "C:\Cream\Scripts\python\update_tables.py", line 21, in main
+    result = download_and_update(**parameter_sets[set_name])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Cream\Scripts\python\download.py", line 35, in download_and_update
+    if download_file(session,csv_url,output_path):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Cream\Scripts\python\download.py", line 16, in download_file
+    for data in response.iter_content(chunk_size=chunk_size):
+  File "C:\Users\Dmitriy\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\models.py", line 818, in generate
+    raise ChunkedEncodingError(e)
+requests.exceptions.ChunkedEncodingError: ('Connection broken: IncompleteRead(32111 bytes read, 657 more expected)', IncompleteRead(32111 bytes read, 657 more expected))
+Downloading: 7.03MB [12:16, 9.55kB/s]
