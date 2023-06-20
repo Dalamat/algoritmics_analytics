@@ -1,4 +1,3 @@
-add the project to GitHub
 add scripts for partial download and update (filter)
 add logs
 optimize scripts structure
@@ -9,6 +8,7 @@ add PowerBi templates
 move AMO data to DB
 add models for views
 capture and bypass exceptions like error_report - need to test
+add the project to GitHub - Done
 move secrets to OS variables - Done
 move urls from envs to paths - Done
 move scripts to a folder - Done
