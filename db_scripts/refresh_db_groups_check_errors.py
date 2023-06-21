@@ -1,7 +1,7 @@
 import psycopg2
-import paths
-import envs
 import sys
+from algoritmics_analytics import paths
+from algoritmics_analytics import envs
 
 #Set variables
 database = envs.database

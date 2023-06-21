@@ -1,7 +1,7 @@
 import psycopg2
-import paths
-import envs
 import sys
+from algoritmics_analytics import paths
+from algoritmics_analytics import envs
 
 #Set variables
 database = envs.database
@@ -15,8 +15,9 @@ csv_path = paths.events_filter_csv_path
 # Connect to the database psql -h  -U  -d 
 conn = psycopg2.connect(database=database, user=user, password=password, host=host, port=port)
 cur = conn.cursor()
-
+print("Start the transaction")
 try:
+    print("Start the transaction")
     # Start the transaction
     cur.execute("BEGIN;")
 
