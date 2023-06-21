@@ -10,12 +10,10 @@ password = envs.db_password
 host = envs.db_host
 port = envs.db_port
 
-groups_csv_path = paths.groups_csv_path
+csv_path = paths.groups_csv_path
 
 # Connect to the database psql -h  -U  -d 
 conn = psycopg2.connect(database=database, user=user, password=password, host=host, port=port)
-
-# Create a cursor object
 cur = conn.cursor()
 
 try:
@@ -27,7 +25,7 @@ try:
     print('TRUNCATE TABLE GROUPS')
 
     # Copy data from the csv file to the groups table
-    with open(groups_csv_path, 'r', encoding='utf-8') as f:
+    with open(csv_path, 'r', encoding='utf-8') as f:
         cur.copy_expert('COPY public."groups" FROM STDIN delimiter \';\' encoding \'utf-8\' csv header escape \'\\\' quote \'"\';', f)
 
     # Get the number of rows affected

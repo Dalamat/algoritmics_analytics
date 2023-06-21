@@ -1,6 +1,7 @@
 import psycopg2
 import paths
 import envs
+import sys
 
 #Set variables
 database = envs.database
@@ -9,7 +10,7 @@ password = envs.db_password
 host = envs.db_host
 port = envs.db_port
 
-events_csv_path = paths.events_csv_path
+csv_path = paths.events_csv_path
 
 # Connect to the database psql -h  -U  -d 
 conn = psycopg2.connect(database=database, user=user, password=password, host=host, port=port)
@@ -26,7 +27,7 @@ try:
     print('TRUNCATE TABLE EVENTS')
 
     # Copy data from the csv file to the events table
-    with open(events_csv_path, 'r', encoding='utf-8') as f:
+    with open(csv_path, 'r', encoding='utf-8') as f:
         cur.copy_expert('COPY public."events" FROM STDIN delimiter \';\' encoding \'utf-8\' csv header escape \'\\\' quote \'"\';', f)
 
     # Get the number of rows affected
@@ -35,12 +36,14 @@ try:
 
     # Commit the changes
     conn.commit()
+    sys.exit(0)  # Exit with code 0 for a successful commit
 
 except Exception as e:
     # If any errors occur, roll back the transaction
     conn.rollback()
     print(f"Error: {e}")
     print("ROLLBACK CHANGES EVENTS")
+    sys.exit(1)  # Exit with code 1 for a rollback
 
 finally:
     # Close the connection
