@@ -30,6 +30,8 @@ script_refresh_db_events = os.path.join(root_floder,"db_scripts", "refresh_db_ev
 script_refresh_db_groups = os.path.join(root_floder,"db_scripts","refresh_db_groups_check_errors.py")
 script_refresh_db_invoices = os.path.join(root_floder,"db_scripts","refresh_db_invoices_check_errors.py")
 script_refresh_db_students = os.path.join(root_floder,"db_scripts","refresh_db_students_check_errors.py")
+script_update_db_events = os.path.join(root_floder,"db_scripts","update_db_events_check_errors.py")
+script_update_db_invoices = os.path.join(root_floder,"db_scripts","update_db_invoices_check_errors.py")
 
 #Generate output paths
 output_path_events = os.path.join(active_folder,envs.file_events)

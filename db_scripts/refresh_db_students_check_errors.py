@@ -1,49 +1,51 @@
 import psycopg2
-import sys
 from algoritmics_analytics import paths
 from algoritmics_analytics import envs
 
-#Set variables
-database = envs.database
-user = envs.db_user
-password = envs.db_password
-host = envs.db_host
-port = envs.db_port
 
-csv_path = paths.students_csv_path
+def refresh_db_students():
 
-# Connect to the database psql -h  -U  -d 
-conn = psycopg2.connect(database=database, user=user, password=password, host=host, port=port)
-cur = conn.cursor()
+    #Set variables
+    database = envs.database
+    user = envs.db_user
+    password = envs.db_password
+    host = envs.db_host
+    port = envs.db_port
 
-try:
-    # Start the transaction
-    cur.execute("BEGIN;")
+    csv_path = paths.students_csv_path
 
-    # Truncate the table
-    cur.execute('TRUNCATE public."students";')
-    print('TRUNCATE TABLE STUDENTS')
+    # Connect to the database psql -h  -U  -d 
+    conn = psycopg2.connect(database=database, user=user, password=password, host=host, port=port)
+    cur = conn.cursor()
 
-    # Copy data from the csv file to the students table
-    with open(csv_path, 'r', encoding='utf-8') as f:
-        cur.copy_expert('COPY public."students" FROM STDIN delimiter \';\' encoding \'utf-8\' csv header escape \'\\\' quote \'"\';', f)
+    try:
+        # Start the transaction
+        cur.execute("BEGIN;")
 
-    # Get the number of rows affected
-    row_count = cur.rowcount
-    print(f"COPY STUDENTS {row_count}")
+        # Truncate the table
+        cur.execute('TRUNCATE public."students";')
+        print('TRUNCATE TABLE STUDENTS')
 
-    # Commit the changes
-    conn.commit()
-    sys.exit(0)  # Exit with code 0 for a successful commit
+        # Copy data from the csv file to the students table
+        with open(csv_path, 'r', encoding='utf-8') as f:
+            cur.copy_expert('COPY public."students" FROM STDIN delimiter \';\' encoding \'utf-8\' csv header escape \'\\\' quote \'"\';', f)
 
-except Exception as e:
-    # If any errors occur, roll back the transaction
-    conn.rollback()
-    print(f"Error: {e}")
-    print("ROLLBACK CHANGES STUDENTS")
-    sys.exit(1)  # Exit with code 1 for a rollback
+        # Get the number of rows affected
+        row_count = cur.rowcount
+        print(f"COPY STUDENTS {row_count}")
 
-finally:
-    # Close the connection
-    cur.close()
-    conn.close()
+        # Commit the changes
+        conn.commit()
+        return True
+
+    except Exception as e:
+        # If any errors occur, roll back the transaction
+        conn.rollback()
+        print(f"Error: {e}")
+        print("ROLLBACK CHANGES STUDENTS")
+        return False
+
+    finally:
+        # Close the connection
+        cur.close()
+        conn.close()

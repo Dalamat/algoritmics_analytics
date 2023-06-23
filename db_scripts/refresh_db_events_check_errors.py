@@ -1,7 +1,7 @@
 import psycopg2
-import sys
 from algoritmics_analytics import paths
 from algoritmics_analytics import envs
+
 
 def refresh_db_events():
 
@@ -37,7 +37,6 @@ def refresh_db_events():
         # Commit the changes
         conn.commit()
         return True
-        sys.exit(0)  # Exit with code 0 for a successful commit
 
     except Exception as e:
         # If any errors occur, roll back the transaction
@@ -45,12 +44,8 @@ def refresh_db_events():
         print(f"Error: {e}")
         print("ROLLBACK CHANGES EVENTS")
         return False
-        sys.exit(1)  # Exit with code 1 for a rollback
 
     finally:
         # Close the connection
         cur.close()
         conn.close()
-
-if __name__ == '__main__':
-    refresh_db_events()

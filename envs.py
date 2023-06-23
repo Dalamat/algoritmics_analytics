@@ -12,9 +12,9 @@ file_events = "Events.csv"
 file_groups = "Groups.csv"
 file_invoices = "Invoices.csv"
 file_students = "Students.csv"
-file_events_filter = "Events_filter.csv"
-file_invoices_filter = "Invoices_filter.csv"
-file_students_filter = "Students_filter.csv"
+file_events_filter = "Events_Updates.csv"
+file_invoices_filter = "Invoices_Updates.csv"
+file_students_filter = "Students_Updates.csv"
 
 #DB Connection
 database = os.environ.get("database")
