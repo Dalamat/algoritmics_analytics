@@ -25,10 +25,11 @@ def db_scripts(script_function):
 
     return function() is True
 
-db_scripts("refresh_db_events")
-db_scripts("refresh_db_groups")
-db_scripts("refresh_db_invoices")
-db_scripts("refresh_db_students")
-db_scripts("update_db_events")
-db_scripts("update_db_invocies")
-db_scripts("update_db_students")
+# Test runs
+# db_scripts("refresh_db_events")
+# db_scripts("refresh_db_groups")
+# db_scripts("refresh_db_invoices")
+# db_scripts("refresh_db_students")
+# db_scripts("update_db_events")
+# db_scripts("update_db_invocies")
+# db_scripts("update_db_students")
