@@ -1,3 +1,4 @@
+import sys
 import paths
 import login
 import asyncio
@@ -52,6 +53,18 @@ def update_table(csv_url, output_path, table_name, db_script_function,send_messa
             if send_messages:
                 asyncio.run(send_group_message(table_name+" "+"Download Failed*"))
     session.close()
+
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        parameter_set_name = sys.argv[1]
+        if parameter_set_name in PARAMETER_SETS:
+            update_table(**PARAMETER_SETS[parameter_set_name])
+        else:
+            print(f"Invalid parameter set name: {parameter_set_name}")
+    else:
+        print("Usage: python your_script_name.py [events_full|groups_full|invoices_full|students_full|events_filter|invoices_filter|students_filter]. Add '_silent' to the parameter to suspend the telegram notification. For example 'events_full_silent'")
+
 
 # Test run
 # update_table(**PARAMETER_SETS["invoices_filter_silent"])
