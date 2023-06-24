@@ -10,6 +10,7 @@ psycopg2 = "==2.9.6"
 requests = "==2.31.0"
 tqdm = "==4.65.0"
 python-telegram-bot = "==20.3"
+apscheduler = "==3.10.1"
 
 [dev-packages]
 
