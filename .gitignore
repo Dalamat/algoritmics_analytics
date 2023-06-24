@@ -161,3 +161,6 @@ cython_debug/
 
 # VS Code
 .vscode/
+
+# BO LMS Session
+session.pkl
