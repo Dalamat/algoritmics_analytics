@@ -1,9 +1,5 @@
 import sys
-import login
-import asyncio
 from tqdm import tqdm
-from script_executor import execute_script
-import paths
 from telegram_client import send_group_message
 
 def download_file(session, url, output_path, chunk_size=1024*1024):
@@ -31,23 +27,3 @@ def download_file(session, url, output_path, chunk_size=1024*1024):
     else:
         print("Error downloading the CSV file")
         return False
-    
-def download_and_update(csv_url, output_path, table_name, script_path):
-    session = login.get_authenticated_session()
-    if session:
-        attempt = 1
-        while attempt <= 5:
-            if download_file(session,csv_url,output_path):
-                print("Proceed to DB update")
-                if execute_script(script_path):
-                    asyncio.run(send_group_message(table_name+" "+"Updated*"))
-                else:
-                    asyncio.run(send_group_message(table_name+" "+"Script Failed*"))
-                break
-            else:
-                print("Download failed")
-                attempt += 1
-        else:
-            print("Download stopped")
-            asyncio.run(send_group_message(table_name+" "+"Download Failed*"))
-    session.close()
