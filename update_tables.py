@@ -26,33 +26,30 @@ PARAMETER_SETS = {
 
 
 def update_table(csv_url, output_path, table_name, db_script_function,send_messages=True):
-    session = login.get_authenticated_session()
-    if session:
-        print(f"Download started. {table_name}")
-        if send_messages:
-            asyncio.run(send_group_message(table_name+" "+"Started*"))
-        attempt = 1
-        while attempt <= 5:
-            print(f"Attempt {attempt}")
-            if download_file(session,csv_url,output_path):
-                print(f"Proceed to DB update. {table_name}")
-                if db_scripts(db_script_function):
-                    print(f"Table updated successfully. {table_name}")
-                    if send_messages:
-                        asyncio.run(send_group_message(table_name+" "+"Updated*"))
-                else:
-                    print(f"Table update failed. {table_name}")                    
-                    if send_messages:
-                        asyncio.run(send_group_message(table_name+" "+"Script Failed*"))
-                break
+    print(f"Download started. {table_name}")
+    if send_messages:
+        asyncio.run(send_group_message(table_name+" "+"Started*"))
+    attempt = 1
+    while attempt <= 5:
+        print(f"Attempt {attempt}")
+        if download_file(csv_url,output_path):
+            print(f"Proceed to DB update. {table_name}")
+            if db_scripts(db_script_function):
+                print(f"Table updated successfully. {table_name}")
+                if send_messages:
+                    asyncio.run(send_group_message(table_name+" "+"Updated*"))
             else:
-                print(f"Attempt {attempt}. Download failed. {table_name}")
-                attempt += 1
+                print(f"Table update failed. {table_name}")                    
+                if send_messages:
+                    asyncio.run(send_group_message(table_name+" "+"Script Failed*"))
+            break
         else:
-            print(f"Download stopped after {attempt} attempts. {table_name}")
-            if send_messages:
-                asyncio.run(send_group_message(table_name+" "+"Download Failed*"))
-    session.close()
+            print(f"Attempt {attempt}. Download failed. {table_name}")
+            attempt += 1
+    else:
+        print(f"Download stopped after {attempt} attempts. {table_name}")
+        if send_messages:
+            asyncio.run(send_group_message(table_name+" "+"Download Failed*"))
 
 
 if __name__ == "__main__":

@@ -1,8 +1,9 @@
 import sys
 from tqdm import tqdm
-from telegram_client import send_group_message
+from login import create_or_load_session
 
-def download_file(session, url, output_path, chunk_size=1024*1024):
+def download_file(url, output_path, chunk_size=1024*1024):
+    session = create_or_load_session()
     response = session.get(url, stream=True)
     if response.status_code == 200:
         total_size = int(response.headers.get('content-length', 0))

@@ -4,6 +4,7 @@ import url_generator
 
 #Specify urls for LMS (BO)
 bo_auth_url = "https://backoffice.algoritmika.org/s/auth/api/e/user/auth"
+bo_check_url = "https://backoffice.algoritmika.org/dashboard/default/partner"
 bo_csv_url_events = "https://backoffice.algoritmika.org/group/default/schedule?timeframe=all&export=true&name=default&exportType=csv"
 bo_csv_url_groups = "https://backoffice.algoritmika.org/group?export=true&name=default&exportType=csv"
 bo_csv_url_invoices = "https://backoffice.algoritmika.org/payment/manage/invoices?export=true&name=default&exportType=csv"
