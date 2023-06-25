@@ -1,4 +1,4 @@
-move AMO data to DB
+move AMO data to DB - in progress
 add logs
 write tests
 add models for views

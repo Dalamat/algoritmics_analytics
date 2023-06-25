@@ -42,13 +42,17 @@ def create_session_and_url():
     response = session.post(PIPELINES_URL, headers=headers)
     pipelines_data = json.loads(response.text)
     pipelines_raw = pipelines_data['response']['pipelines']
-    pipelines =  {p['id']: {i: q['id'] for i, q in enumerate(p['statuses'].values())} for p in pipelines_raw.values()}
-
+    # print(pipelines_raw)
+    # pipelines = {p['id']: {i: q['id'] for i, q in enumerate(p['statuses'].values())} for p in pipelines_raw.values() if p['is_archive'] == False} # Only active pipelines
+    pipelines = {p['id']: {i: q['id'] for i, q in enumerate(p['statuses'].values())} for p in pipelines_raw.values()} # All pipelines
+    # print(pipelines)
+    
     # Export data
     url = EXPORT_URL
-    payload = {"encoding": "", "filter": {}, "type": "csv"}
+    payload = {"filter": {}, "type": "csv", "encoding": ""}
     payload['filter'] = {
         'pipe': pipelines,
+        'tags_logic': "or",
         'useFilter': 'y',
     }
     response = session.post(url, json=payload, headers=headers)
@@ -68,4 +72,4 @@ def create_session_and_url():
     # print(download_url)
     return session, download_url
 
-# login()
+# create_session_and_url()

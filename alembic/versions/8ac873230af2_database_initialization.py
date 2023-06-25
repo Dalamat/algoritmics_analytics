@@ -53,7 +53,7 @@ def upgrade() -> None:
     """)
     #Migration 2: Create groups table
     op.execute("""
-        CREATE TABLE public."groups" (
+        CREATE TABLE public.groups (
             id text NULL,
             "name" text NULL,
             platform text NULL,
@@ -481,6 +481,47 @@ def upgrade() -> None:
         GROUP BY t."оплачено", ((t.r - 1) / 4), t.id, t."id группы", t."имя", t."название", t."площадка", t."стоимость_урока"
         ORDER BY t."площадка", t."id группы", t.id, (min(t."#след. урок events")), t."оплачено" DESC;
     """)
+    pass
 
 def downgrade() -> None:
+        # Revert Migration 10
+    op.execute("""
+        DROP VIEW public.payments_by_4
+    """)
+        # Revert Migration 9
+    op.execute("""
+        DROP VIEW public.events_for_students
+    """)
+        # Revert Migration 8
+    op.execute("""
+        DROP VIEW public.students_view
+    """)
+        # Revert Migration 7
+    op.execute("""
+        DROP VIEW public.invoices_view
+    """)
+        # Revert Migration 6
+    op.execute("""
+        DROP VIEW public.groups_view
+    """)
+        # Revert Migration 5
+    op.execute("""
+        DROP VIEW public.events_view
+    """)
+        # Revert Migration 4
+    op.execute("""
+        DROP TABLE public.students
+    """)
+        # Revert Migration 3
+    op.execute("""
+        DROP TABLE public.invoices
+    """)
+        # Revert Migration 2
+    op.execute("""
+        DROP TABLE public.groups
+    """)
+        # Revert Migration 1
+    op.execute("""
+        DROP TABLE public.events
+    """)
     pass

@@ -25,6 +25,7 @@ invoices_csv_path = os.path.join(active_folder, envs.file_invoices)
 events_filter_csv_path = os.path.join(active_folder, envs.file_events_filter)
 students_filter_csv_path = os.path.join(active_folder,envs.file_students_filter)
 invoices_filter_csv_path = os.path.join(active_folder, envs.file_invoices_filter)
+leads_csv_path = os.path.join(active_folder, envs.file_leads)
 
 #Generate paths for the database refresh scripts
 script_refresh_db_events = os.path.join(root_floder,"db_scripts", "refresh_db_events_check_errors.py")
