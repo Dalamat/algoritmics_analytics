@@ -1,6 +1,5 @@
 import sys
 import paths
-import login
 import asyncio
 from download import download_file
 from db_scripts_controller import db_scripts
@@ -21,18 +20,20 @@ PARAMETER_SETS = {
     "students_full_silent":{"csv_url":paths.bo_csv_url_students,"output_path":paths.output_path_students,"table_name":"STUDENTS FULL","db_script_function":"refresh_db_students","send_messages":False},
     "events_filter_silent":{"csv_url":paths.bo_csv_url_events_filter,"output_path":paths.output_path_events_filter,"table_name":"EVENTS UPDATES","db_script_function":"update_db_events","send_messages":False},
     "invoices_filter_silent":{"csv_url":paths.bo_csv_url_invoices_filter,"output_path":paths.output_path_invoices_filter,"table_name":"INVOICES UPDATES","db_script_function":"update_db_invocies","send_messages":False},
-    "students_filter_silent":{"csv_url":paths.bo_csv_url_students_filter,"output_path":paths.output_path_students_filter,"table_name":"STUDENTS UPDATES","db_script_function":"update_db_students","send_messages":False}
+    "students_filter_silent":{"csv_url":paths.bo_csv_url_students_filter,"output_path":paths.output_path_students_filter,"table_name":"STUDENTS UPDATES","db_script_function":"update_db_students","send_messages":False},
+    "amo_leads":{"csv_url":None,"output_path":paths.output_path_leads,"table_name":"LEADS FULL","db_script_function":None,"source":"AMO","send_messages":True}, #TODO
+    "amo_leads_silent":{"csv_url":None,"output_path":paths.output_path_leads,"table_name":"LEADS FULL","db_script_function":None,"source":"AMO","send_messages":False} #TODO
 }
 
 
-def update_table(csv_url, output_path, table_name, db_script_function,send_messages=True):
+def update_table(csv_url, output_path, table_name, db_script_function, source="BO", send_messages=True):
     print(f"Download started. {table_name}")
     if send_messages:
         asyncio.run(send_group_message(table_name+" "+"Started*"))
     attempt = 1
     while attempt <= 5:
         print(f"Attempt {attempt}")
-        if download_file(csv_url,output_path):
+        if download_file(csv_url,output_path, source):
             print(f"Proceed to DB update. {table_name}")
             if db_scripts(db_script_function):
                 print(f"Table updated successfully. {table_name}")
@@ -65,3 +66,4 @@ if __name__ == "__main__":
 
 # Test run
 # update_table(**PARAMETER_SETS["invoices_filter_silent"])
+# update_table(**PARAMETER_SETS["amo_leads_silent"])

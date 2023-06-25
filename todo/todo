@@ -1,10 +1,10 @@
-add AMO export part
 move AMO data to DB
 add logs
 write tests
 add models for views
 add PowerBi templates
 update readme file
+add AMO export part - Done
 capture and bypass exceptions like error_report - Done
 optimize scripts structure - Done
 add scripts for partial download and update (filter) - Done

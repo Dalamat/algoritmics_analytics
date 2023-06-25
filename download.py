@@ -1,10 +1,18 @@
 import sys
 from tqdm import tqdm
-from login import create_or_load_session
+from login_bo import create_or_load_session
+from login_amo import create_session_and_url
 
-def download_file(url, output_path, chunk_size=1024*1024):
-    session = create_or_load_session()
-    response = session.get(url, stream=True)
+def download_file(url, output_path, source="BO", chunk_size=1024*1024):
+    if source == "BO":
+        session = create_or_load_session()
+        download_url = url
+    elif source == "AMO":
+        session, download_url = create_session_and_url()
+    else:
+        print(f"Wrong source - {source}. Must be BO or AMO")
+        return False
+    response = session.get(download_url, stream=True)
     if response.status_code == 200:
         total_size = int(response.headers.get('content-length', 0))
         size_provided = total_size > 0

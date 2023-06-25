@@ -2,7 +2,7 @@ import os
 import envs
 import url_generator
 
-#Specify urls for LMS (BO)
+#LMS (BO) urls
 bo_auth_url = "https://backoffice.algoritmika.org/s/auth/api/e/user/auth"
 bo_check_url = "https://backoffice.algoritmika.org/dashboard/default/partner"
 bo_csv_url_events = "https://backoffice.algoritmika.org/group/default/schedule?timeframe=all&export=true&name=default&exportType=csv"
@@ -33,6 +33,7 @@ script_refresh_db_invoices = os.path.join(root_floder,"db_scripts","refresh_db_i
 script_refresh_db_students = os.path.join(root_floder,"db_scripts","refresh_db_students_check_errors.py")
 script_update_db_events = os.path.join(root_floder,"db_scripts","update_db_events_check_errors.py")
 script_update_db_invoices = os.path.join(root_floder,"db_scripts","update_db_invoices_check_errors.py")
+script_refresh_db_leads = None # TODO
 
 #Generate output paths
 output_path_events = os.path.join(active_folder,envs.file_events)
@@ -42,3 +43,4 @@ output_path_students = os.path.join(active_folder,envs.file_students)
 output_path_events_filter = os.path.join(active_folder,envs.file_events_filter)
 output_path_invoices_filter = os.path.join(active_folder,envs.file_invoices_filter)
 output_path_students_filter = os.path.join(active_folder,envs.file_students_filter)
+output_path_leads = os.path.join(active_folder,envs.file_leads)
