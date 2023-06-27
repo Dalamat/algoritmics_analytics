@@ -36,3 +36,4 @@ amo_host = os.environ.get('amo_host')
 #Telegram
 telegram_bot_token = os.environ.get("telegram_bot_token")
 telegram_group = os.environ.get("telegram_group")
+telegram_mentions = os.environ.get("telegram_mentions") # Use @Telegram mentions for the tagged notification for the update failures

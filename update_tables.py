@@ -1,4 +1,5 @@
 import sys
+import envs
 import paths
 import asyncio
 from download import download_file
@@ -42,7 +43,7 @@ def update_table(csv_url, output_path, table_name, db_script_function, source="B
             else:
                 print(f"Table update failed. {table_name}")                    
                 if send_messages:
-                    asyncio.run(send_group_message(table_name+" "+"Script Failed*"))
+                    asyncio.run(send_group_message(table_name+" "+"Script Failed*")+" "+envs.telegram_mentions)
             break
         else:
             print(f"Attempt {attempt}. Download failed. {table_name}")
@@ -50,7 +51,7 @@ def update_table(csv_url, output_path, table_name, db_script_function, source="B
     else:
         print(f"Download stopped after {attempt} attempts. {table_name}")
         if send_messages:
-            asyncio.run(send_group_message(table_name+" "+"Download Failed*"))
+            asyncio.run(send_group_message(table_name+" "+"Download Failed*"+" "+envs.telegram_mentions))
 
 
 if __name__ == "__main__":
