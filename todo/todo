@@ -1,4 +1,4 @@
-move AMO data to DB - in progress
+move AMO data to DB - in progress (convert dates to date field type)
 add logs
 write tests
 add models for views
