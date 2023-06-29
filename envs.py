@@ -16,6 +16,7 @@ file_events_filter = "Events_Updates.csv"
 file_invoices_filter = "Invoices_Updates.csv"
 file_students_filter = "Students_Updates.csv"
 file_leads = "Leads.csv"
+file_budgets = "Budgets.csv"
 
 #DB Connection
 database = os.environ.get("database")
