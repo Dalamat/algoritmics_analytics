@@ -5,6 +5,7 @@ import asyncio
 from download import download_file
 from db_scripts_controller import db_scripts
 from telegram_client import send_group_message
+from log_config import logger
 
 
 PARAMETER_SETS = {
@@ -28,28 +29,28 @@ PARAMETER_SETS = {
 
 
 def update_table(csv_url, output_path, table_name, db_script_function, source="BO", send_messages=True):
-    print(f"Download started. {table_name}")
-    if send_messages:
-        asyncio.run(send_group_message(table_name+" "+"Started*"))
+    logger.info(f"Download started. {table_name}")
+    # if send_messages:
+    #     asyncio.run(send_group_message(table_name+" "+"Started*"))
     attempt = 1
     while attempt <= 5:
-        print(f"Attempt {attempt}")
+        logger.debug(f"Attempt {attempt}")
         if download_file(csv_url,output_path, source):
-            print(f"Proceed to DB update. {table_name}")
+            logger.info(f"Proceed to DB update. {table_name}")
             if db_scripts(db_script_function):
-                print(f"Table updated successfully. {table_name}")
-                if send_messages:
-                    asyncio.run(send_group_message(table_name+" "+"Updated*"))
+                logger.info(f"Table updated successfully. {table_name}")
+                # if send_messages:
+                #     asyncio.run(send_group_message(table_name+" "+"Updated*"))
             else:
-                print(f"Table update failed. {table_name}")                    
+                logger.error(f"Table update failed. {table_name}")                    
                 if send_messages:
                     asyncio.run(send_group_message(table_name+" "+"Script Failed*")+" "+envs.telegram_mentions)
             break
         else:
-            print(f"Attempt {attempt}. Download failed. {table_name}")
+            logger.warning(f"Attempt {attempt}. Download failed. {table_name}")
             attempt += 1
     else:
-        print(f"Download stopped after {attempt} attempts. {table_name}")
+        logger.error(f"Download stopped after {attempt} attempts. {table_name}")
         if send_messages:
             asyncio.run(send_group_message(table_name+" "+"Download Failed*"+" "+envs.telegram_mentions))
 
@@ -68,3 +69,7 @@ if __name__ == "__main__":
 # Test run
 # update_table(**PARAMETER_SETS["invoices_filter_silent"])
 # update_table(**PARAMETER_SETS["leads_full_silent"])
+# update_table(**PARAMETER_SETS["groups_full"])
+# update_table(**PARAMETER_SETS["invoices_full"])
+# update_table(**PARAMETER_SETS["students_full"])
+# update_table(**PARAMETER_SETS["events_full"])
