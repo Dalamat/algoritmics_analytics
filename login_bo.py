@@ -2,6 +2,7 @@ import requests
 import envs
 import paths
 import pickle
+from log_config import logger
 
 url = paths.bo_auth_url
 check_url = paths.bo_check_url
@@ -22,10 +23,10 @@ def get_authenticated_session():
 
     # Check if login was successful
     if response.status_code == 200:
-        print("Logged in successfully")
+        logger.info("Logged in successfully")
         return session
     else:
-        print("Error logging in")
+        logger.error("Error logging in")
         session.close()
         return None
     
@@ -42,9 +43,9 @@ def create_or_load_session():
     try:
         with open(SESSION_FILE, "rb") as f:
             session = pickle.load(f)
-            print("Loaded the existing session from file.")
+            logger.info("Loaded the existing session from file.")
             if not is_session_valid(session):
-                print("Session expired. Creating a new session.")
+                logger.info("Session expired. Creating a new session.")
                 session = None
     except FileNotFoundError:
         pass
@@ -54,6 +55,6 @@ def create_or_load_session():
         if session:
             with open(SESSION_FILE, "wb") as f:
                 pickle.dump(session, f)
-                print("Saved the new session to file.")
+                logger.info("Saved the new session to file.")
 
     return session

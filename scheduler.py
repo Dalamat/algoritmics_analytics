@@ -3,51 +3,52 @@ from apscheduler.executors.pool import ThreadPoolExecutor
 from update_tables import update_table, PARAMETER_SETS
 from heartbeat import heartbeat
 import time
+from log_config import logger
 
 def task_update_events_full():
-    print("Starting events_full task")
+    logger.info("Starting events_full task")
     update_table(**PARAMETER_SETS["events_full"])
-    print("Finished events_full task")
+    logger.info("Finished events_full task")
 
 def task_update_groups_full():
-    print("Starting groups_full task")
+    logger.info("Starting groups_full task")
     update_table(**PARAMETER_SETS["groups_full"])
-    print("Finished groups_full task")
+    logger.info("Finished groups_full task")
 
 def task_update_invoices_full():
-    print("Starting invoices_full task")
+    logger.info("Starting invoices_full task")
     update_table(**PARAMETER_SETS["invoices_full"])
-    print("Finished invoices_full task")
+    logger.info("Finished invoices_full task")
 
 def task_update_students_full():
-    print("Starting students_full task")
+    logger.info("Starting students_full task")
     update_table(**PARAMETER_SETS["students_full"])
-    print("Finished students_full task")
+    logger.info("Finished students_full task")
 
 def task_update_events_filter():
-    print("Starting events_filter task")
+    logger.info("Starting events_filter task")
     update_table(**PARAMETER_SETS["events_filter"])
-    print("Finished events_filter task")
+    logger.info("Finished events_filter task")
 
 def task_update_invoices_filter():
-    print("Starting invoices_filter task")
+    logger.info("Starting invoices_filter task")
     update_table(**PARAMETER_SETS["invoices_filter"])
-    print("Finished invoices_filter task")  
+    logger.info("Finished invoices_filter task")  
 
 def task_update_students_filter():
-    print("Starting students_filter task")
+    logger.info("Starting students_filter task")
     update_table(**PARAMETER_SETS["students_filter"])
-    print("Finished students_filter task")
+    logger.info("Finished students_filter task")
 
 def task_update_leads_full():
-    print("Starting leads_full task")
+    logger.info("Starting leads_full task")
     update_table(**PARAMETER_SETS["leads_full"])
-    print ("Finished leads_full task")
+    logger.info ("Finished leads_full task")
 
 def task_update_budgets_full():
-    print("Starting budgets_full task")
+    logger.info("Starting budgets_full task")
     update_table(**PARAMETER_SETS["budgets_full"])
-    print ("Finished budgets_full task")
+    logger.info ("Finished budgets_full task")
 
 if __name__ == "__main__":
     executors = {
@@ -84,6 +85,6 @@ if __name__ == "__main__":
         while True:
             time.sleep(2)
     except KeyboardInterrupt:
-        print("Shutting down scheduler...")
+        logger.info("Shutting down scheduler...")
         scheduler.shutdown()
 
