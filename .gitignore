@@ -164,3 +164,9 @@ cython_debug/
 
 # BO LMS Session
 session.pkl
+
+# Google service account key
+gcp_sa_key.json
+
+# Logs
+logs/
