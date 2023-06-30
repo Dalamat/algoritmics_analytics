@@ -2,6 +2,7 @@ import requests
 import envs
 import json
 import time
+from log_config import logger
 
 AMO_HOST = envs.amo_host
 AMO_LOGIN = envs.amo_login
@@ -42,10 +43,8 @@ def create_session_and_url():
     response = session.post(PIPELINES_URL, headers=headers)
     pipelines_data = json.loads(response.text)
     pipelines_raw = pipelines_data['response']['pipelines']
-    # print(pipelines_raw)
     # pipelines = {p['id']: {i: q['id'] for i, q in enumerate(p['statuses'].values())} for p in pipelines_raw.values() if p['is_archive'] == False} # Only active pipelines
     pipelines = {p['id']: {i: q['id'] for i, q in enumerate(p['statuses'].values())} for p in pipelines_raw.values()} # All pipelines
-    # print(pipelines)
     
     # Export data
     url = EXPORT_URL
@@ -56,20 +55,17 @@ def create_session_and_url():
         'useFilter': 'y',
     }
     response = session.post(url, json=payload, headers=headers)
-    # print(response.json())
     uuid = response.json()['uuid']
-    # print(uuid)
     while True:
         time.sleep(10)
         response = session.get(url, headers=headers)
         status = (response.json())['status']
-        print(status)
+        logger.info(status)
         if status['error_code']:
             raise Exception(status['error_code'])
         if status['progress'] == 100:
             break
     download_url = f"https://{AMO_HOST}/download/export/{uuid}"
-    # print(download_url)
     return session, download_url
 
 # create_session_and_url()
