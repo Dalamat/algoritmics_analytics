@@ -29,4 +29,4 @@ logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)  # Set the root logger level to capture all logs
 logger.addHandler(file_handler)
 logger.addHandler(console_handler)
-logger.addHandler(debug_handler) # Uncomment this line to enable the debug logger
+# logger.addHandler(debug_handler) # Uncomment this line to enable the debug logger
