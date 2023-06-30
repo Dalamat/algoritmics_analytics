@@ -1,7 +1,7 @@
 from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.executors.pool import ThreadPoolExecutor
 from update_tables import update_table, PARAMETER_SETS
+from heartbeat import heartbeat
 import time
 
 def task_update_events_full():
@@ -64,6 +64,10 @@ if __name__ == "__main__":
     scheduler.add_job(task_update_events_full, 'cron', minute='0', hour='0')
     scheduler.add_job(task_update_invoices_full, 'cron', minute='0', hour='0')
     scheduler.add_job(task_update_students_full, 'cron', minute='0', hour='0')
+    scheduler.add_job(task_update_leads_full, 'cron', minute='0', hour='0')
+
+    # Run hourly
+    scheduler.add_job(heartbeat, 'cron', minute='0', hour='0-23')
 
     # Start the scheduler
     scheduler.start()
