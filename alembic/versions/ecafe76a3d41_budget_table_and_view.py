@@ -20,8 +20,8 @@ def upgrade() -> None:
     # Create budget table
     op.execute('''
         CREATE TABLE public.budget(
-            date date,
-            sum float
+            date text,
+            sum text
         );
     ''')
     # Create budget_view view

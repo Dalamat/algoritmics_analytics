@@ -24,7 +24,9 @@ PARAMETER_SETS = {
     "invoices_filter_silent":{"csv_url":paths.bo_csv_url_invoices_filter,"output_path":paths.output_path_invoices_filter,"table_name":"INVOICES UPDATES","db_script_function":"update_db_invocies","send_messages":False},
     "students_filter_silent":{"csv_url":paths.bo_csv_url_students_filter,"output_path":paths.output_path_students_filter,"table_name":"STUDENTS UPDATES","db_script_function":"update_db_students","send_messages":False},
     "leads_full":{"csv_url":None,"output_path":paths.output_path_leads,"table_name":"LEADS FULL","db_script_function":"refresh_db_leads","source":"AMO","send_messages":True},
-    "leads_full_silent":{"csv_url":None,"output_path":paths.output_path_leads,"table_name":"LEADS FULL","db_script_function":"refresh_db_leads","source":"AMO","send_messages":False}
+    "leads_full_silent":{"csv_url":None,"output_path":paths.output_path_leads,"table_name":"LEADS FULL","db_script_function":"refresh_db_leads","source":"AMO","send_messages":False},
+    "budgets_full":{"csv_url":None,"output_path":paths.output_path_budgets,"table_name":"BUDGETS FULL","db_script_function":"refresh_db_budgets","source":"GCP","send_messages":True},
+    "budgets_full_silent":{"csv_url":None,"output_path":paths.output_path_budgets,"table_name":"BUDGETS FULL","db_script_function":"refresh_db_budgets","source":"GCP","send_messages":False}
 }
 
 
@@ -63,7 +65,7 @@ if __name__ == "__main__":
         else:
             print(f"Invalid parameter set name: {parameter_set_name}")
     else:
-        print("Usage: python your_script_name.py [events_full|groups_full|invoices_full|students_full|events_filter|invoices_filter|students_filter|leads_full]. Add '_silent' to the parameter to suspend the telegram notification. For example 'events_full_silent'")
+        print("Usage: python your_script_name.py [events_full|groups_full|invoices_full|students_full|events_filter|invoices_filter|students_filter|leads_full|budgets_full]. Add '_silent' to the parameter to suspend the telegram notification. For example 'events_full_silent'")
 
 
 # Test run
@@ -73,3 +75,4 @@ if __name__ == "__main__":
 # update_table(**PARAMETER_SETS["invoices_full"])
 # update_table(**PARAMETER_SETS["students_full"])
 # update_table(**PARAMETER_SETS["events_full"])
+# update_table(**PARAMETER_SETS["budgets_full"])

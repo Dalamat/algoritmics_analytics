@@ -28,7 +28,7 @@ def refresh_db_budgets():
 
         # Copy data from the csv file
         with open(csv_path, 'r', encoding='utf-8') as f:
-            cur.copy_expert('COPY public."budget" FROM STDIN delimiter \';\' encoding \'utf-8\' csv header escape \'\\\' quote \'"\';', f)
+            cur.copy_expert('COPY public."budget" FROM STDIN delimiter \',\' encoding \'utf-8\' csv header escape \'\\\' quote \'"\';', f)
 
         # Get the number of rows affected
         row_count = cur.rowcount

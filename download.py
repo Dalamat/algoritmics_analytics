@@ -2,6 +2,8 @@ import sys
 from tqdm import tqdm
 from login_bo import create_or_load_session
 from login_amo import create_session_and_url
+from login_gcp import gcp_get_values
+import csv
 from log_config import logger
 
 def download_file(url, output_path, source="BO", chunk_size=1024*1024):
@@ -10,6 +12,13 @@ def download_file(url, output_path, source="BO", chunk_size=1024*1024):
         download_url = url
     elif source == "AMO":
         session, download_url = create_session_and_url()
+    elif source == "GCP":
+            values = gcp_get_values()
+            with open(output_path, 'w', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerows(values)
+            logger.info(f"Data downloaded successfully to {output_path}")
+            return True
     else:
         logger.error(f"Wrong source - {source}. Must be BO or AMO")
         return False

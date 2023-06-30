@@ -44,6 +44,11 @@ def task_update_leads_full():
     update_table(**PARAMETER_SETS["leads_full"])
     print ("Finished leads_full task")
 
+def task_update_budgets_full():
+    print("Starting budgets_full task")
+    update_table(**PARAMETER_SETS["budgets_full"])
+    print ("Finished budgets_full task")
+
 if __name__ == "__main__":
     executors = {
         'default': ThreadPoolExecutor(10)
@@ -58,6 +63,7 @@ if __name__ == "__main__":
     scheduler.add_job(task_update_invoices_filter, 'cron', minute='25,55', hour='6-22')
     scheduler.add_job(task_update_students_filter, 'cron', minute='25,55', hour='6-22')
     scheduler.add_job(task_update_leads_full, 'cron', minute='25,55', hour='6-22')
+    scheduler.add_job(task_update_budgets_full, 'cron', minute='25,55', hour='6-22')
 
     # Run once a day at midnight
     scheduler.add_job(task_update_groups_full, 'cron', minute='0', hour='0')

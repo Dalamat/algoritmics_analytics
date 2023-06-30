@@ -34,6 +34,14 @@ amo_login = os.environ.get('amo_email')
 amo_password = os.environ.get('amo_password')
 amo_host = os.environ.get('amo_host')
 
+#Google Spreadsheets Access
+# Define the path to your credentials JSON file
+gcp_credentials_file = 'gcp_sa_key.json'
+# Define the ID of your Google Spreadsheet
+gcp_spreadsheet_id = os.environ.get('gcp_spreadsheet_id')
+# Define the name of the sheet from which you want to download data
+gcp_sheet_name = 'Default'
+
 #Telegram
 telegram_bot_token = os.environ.get("telegram_bot_token")
 telegram_group = os.environ.get("telegram_group")
