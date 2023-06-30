@@ -2,6 +2,7 @@ import sys
 from tqdm import tqdm
 from login_bo import create_or_load_session
 from login_amo import create_session_and_url
+from log_config import logger
 
 def download_file(url, output_path, source="BO", chunk_size=1024*1024):
     if source == "BO":
@@ -10,7 +11,7 @@ def download_file(url, output_path, source="BO", chunk_size=1024*1024):
     elif source == "AMO":
         session, download_url = create_session_and_url()
     else:
-        print(f"Wrong source - {source}. Must be BO or AMO")
+        logger.error(f"Wrong source - {source}. Must be BO or AMO")
         return False
     response = session.get(download_url, stream=True)
     if response.status_code == 200:
@@ -24,15 +25,15 @@ def download_file(url, output_path, source="BO", chunk_size=1024*1024):
                     f.write(data)
             except Exception as e:
                 progress.close()
-                print("Error occurred while downloading the CSV file due to an exception:", e)
+                logger.error("Error occurred while downloading the CSV file due to an exception:", e)
                 return False
         progress.close()
         if size_provided and progress.n != progress.total:
-            print("Error occurred while downloading the CSV file.",progress.n,"!=",progress.total)
+            logger.error("Error occurred while downloading the CSV file.",progress.n,"!=",progress.total)
             return False
         else:
-            print("CSV file downloaded successfully to", output_path)
+            logger.info("CSV file downloaded successfully to", output_path)
             return True
     else:
-        print("Error downloading the CSV file")
+        logger.error("Error downloading the CSV file")
         return False
