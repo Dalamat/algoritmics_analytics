@@ -1,7 +1,3 @@
-move AMO data to DB - in progress (configure budget table update)
-    setup google service account - https://docs.gspread.org/en/latest/oauth2.html#enable-api-access
-    fix dates interpretation for budgets
-add logs
 refactor csv_path and output_path
 write tests
 add models for views
@@ -14,6 +10,9 @@ update readme file
     PowerBI
     PostgreSQL
     Google service acc - https://docs.gspread.org/en/latest/oauth2.html#enable-api-access
+        Data formats (date, sum)
+move AMO data to DB - in progress (configure budget table update) - Done
+add logs - Done
 add AMO export part - Done
 capture and bypass exceptions like error_report - Done
 optimize scripts structure - Done
