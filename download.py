@@ -14,11 +14,15 @@ def download_file(url, output_path, source="BO", chunk_size=1024*1024):
         session, download_url = create_session_and_url()
     elif source == "GCP":
             values = gcp_get_values()
-            with open(output_path, 'w', newline='') as file:
-                writer = csv.writer(file)
-                writer.writerows(values)
-            logger.info(f"Data downloaded successfully to {output_path}")
-            return True
+            if values:
+                with open(output_path, 'w', newline='') as file:
+                    writer = csv.writer(file)
+                    writer.writerows(values)
+                logger.info(f"Data downloaded successfully to {output_path}")
+                return True
+            else:
+                logger.error(f"Downloading failed. {output_path}")
+                return False
     else:
         logger.error(f"Wrong source - {source}. Must be BO or AMO")
         return False
