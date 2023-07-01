@@ -17,14 +17,14 @@ bo_csv_url_students_filter = url_generator.bo_csv_url_students_filter
 root_floder = envs.root_folder
 active_folder = envs.active_folder
 
-# Generate paths for the source files
+# Generate paths for the source and output files
 events_csv_path = os.path.join(active_folder, envs.file_events)
 groups_csv_path = os.path.join(active_folder, envs.file_groups)
-students_csv_path = os.path.join(active_folder, envs.file_students)
 invoices_csv_path = os.path.join(active_folder, envs.file_invoices)
+students_csv_path = os.path.join(active_folder, envs.file_students)
 events_filter_csv_path = os.path.join(active_folder, envs.file_events_filter)
-students_filter_csv_path = os.path.join(active_folder,envs.file_students_filter)
 invoices_filter_csv_path = os.path.join(active_folder, envs.file_invoices_filter)
+students_filter_csv_path = os.path.join(active_folder,envs.file_students_filter)
 leads_csv_path = os.path.join(active_folder, envs.file_leads)
 budgets_csv_path = os.path.join(active_folder, envs.file_budgets)
 
@@ -36,14 +36,3 @@ script_refresh_db_students = os.path.join(root_floder,"db_scripts","refresh_db_s
 script_update_db_events = os.path.join(root_floder,"db_scripts","update_db_events_check_errors.py")
 script_update_db_invoices = os.path.join(root_floder,"db_scripts","update_db_invoices_check_errors.py")
 script_refresh_db_leads = None # TODO
-
-#Generate output paths
-output_path_events = os.path.join(active_folder, envs.file_events)
-output_path_groups = os.path.join(active_folder,envs.file_groups)
-output_path_invoices = os.path.join(active_folder,envs.file_invoices)
-output_path_students = os.path.join(active_folder,envs.file_students)
-output_path_events_filter = os.path.join(active_folder,envs.file_events_filter)
-output_path_invoices_filter = os.path.join(active_folder,envs.file_invoices_filter)
-output_path_students_filter = os.path.join(active_folder,envs.file_students_filter)
-output_path_leads = os.path.join(active_folder,envs.file_leads)
-output_path_budgets = os.path.join(active_folder, envs.file_budgets)
