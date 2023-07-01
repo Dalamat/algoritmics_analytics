@@ -56,7 +56,6 @@ def create_session_and_url():
             'useFilter': 'y',
         }
         response = session.post(url, json=payload, headers=headers)
-        uuid = response.json()['uuid']
         while True:
             time.sleep(10)
             response = session.get(url, headers=headers)
@@ -66,6 +65,7 @@ def create_session_and_url():
                 raise Exception(status['error_code'])
             if status['progress'] == 100:
                 break
+        uuid = response.json()['uuid']
         download_url = f"https://{AMO_HOST}/download/export/{uuid}"
         return session, download_url
     except Exception as e:

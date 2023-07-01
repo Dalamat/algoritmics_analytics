@@ -46,7 +46,7 @@ def update_table(csv_url, output_path, table_name, db_script_function, source="B
             else:
                 logger.error(f"Table update failed. {table_name}")                    
                 if send_messages:
-                    asyncio.run(send_group_message(table_name+" "+"Script Failed*")+" "+envs.telegram_mentions)
+                    asyncio.run(send_group_message(table_name+" "+"Script Failed*"+" "+envs.telegram_mentions))
             break
         else:
             logger.warning(f"Attempt {attempt}. Download failed. {table_name}")
