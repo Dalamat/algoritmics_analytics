@@ -52,7 +52,7 @@ def update_table(csv_url, output_path, table_name, db_script_function, source="B
             logger.warning(f"Attempt {attempt}. Download failed. {table_name}")
             attempt += 1
     else:
-        logger.error(f"Download stopped after {attempt} attempts. {table_name}")
+        logger.error(f"Download stopped after {attempt-1} attempts. {table_name}")
         if send_messages:
             asyncio.run(send_group_message(table_name+" "+"Download Failed*"+" "+envs.telegram_mentions))
 
