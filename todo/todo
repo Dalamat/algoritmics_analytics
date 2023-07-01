@@ -1,4 +1,3 @@
-add proper error handling
 write tests
 add models for views
 add PowerBi templates
@@ -11,6 +10,7 @@ update readme file
     PostgreSQL
     Google service acc - https://docs.gspread.org/en/latest/oauth2.html#enable-api-access
         Data formats (date, sum)
+add proper error handling - Done
 refactor csv_path and output_path - Done
 move AMO data to DB - in progress (configure budget table update) - Done
 add logs - Done

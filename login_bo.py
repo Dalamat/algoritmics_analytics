@@ -17,19 +17,22 @@ def get_authenticated_session():
         "password": password,
     }
 
-    # Start a session and log in to the website
-    session = requests.Session()
-    response = session.post(url, data=login_data)
+    try:
+        # Start a session and log in to the website
+        session = requests.Session()
+        response = session.post(url, data=login_data)
 
-    # Check if login was successful
-    if response.status_code == 200:
-        logger.info("Logged in successfully")
-        return session
-    else:
-        logger.error("Error logging in")
-        session.close()
-        return None
-    
+        # Check if login was successful
+        if response.status_code == 200:
+            logger.info("Logged in successfully")
+            return session
+        else:
+            logger.error("Error logging in")
+            session.close()
+            return False
+    except Exception as e:
+        logger.error(f"Error: {e}")
+        return False
 
 def is_session_valid(session):
     response = session.get(check_url)
@@ -37,24 +40,25 @@ def is_session_valid(session):
 
 
 def create_or_load_session():
-    
-    session = None
-
     try:
-        with open(SESSION_FILE, "rb") as f:
-            session = pickle.load(f)
-            logger.info("Loaded the existing session from file.")
-            if not is_session_valid(session):
-                logger.info("Session expired. Creating a new session.")
-                session = None
-    except FileNotFoundError:
-        pass
+        session = None
+        try:
+            with open(SESSION_FILE, "rb") as f:
+                session = pickle.load(f)
+                logger.info("Loaded the existing session from file.")
+                if not is_session_valid(session):
+                    logger.info("Session expired. Creating a new session.")
+                    session = None
+        except FileNotFoundError:
+            pass
 
-    if not session:
-        session = get_authenticated_session()
-        if session:
-            with open(SESSION_FILE, "wb") as f:
-                pickle.dump(session, f)
-                logger.info("Saved the new session to file.")
-
-    return session
+        if not session:
+            session = get_authenticated_session()
+            if session:
+                with open(SESSION_FILE, "wb") as f:
+                    pickle.dump(session, f)
+                    logger.info("Saved the new session to file.")
+        return session
+    except Exception as e:
+        logger.error(f"Error: {e}")
+        return False

@@ -22,50 +22,54 @@ def extract_csrf_token(response):
 
 
 def create_session_and_url():
-    # Get the initial response to collect crsf_token
-    session = requests.Session()
-    url = REQUEST_URL
-    response = session.get(url).text
-    CSRF_TOKEN = extract_csrf_token(response)
+    try:
+        # Get the initial response to collect crsf_token
+        session = requests.Session()
+        url = REQUEST_URL
+        response = session.get(url).text
+        CSRF_TOKEN = extract_csrf_token(response)
 
-    # Authenticate
-    payload = {
-        "csrf_token": CSRF_TOKEN,
-        "username": AMO_LOGIN,
-        "password": AMO_PASSWORD,
-        "temporary_auth": "N",
-    }
-    url = AUTH_URL
-    response = session.post(url, json=payload)
-    
-    # Get the list of pipelines
-    headers = {'X-Requested-With': 'XMLHttpRequest'}
-    response = session.post(PIPELINES_URL, headers=headers)
-    pipelines_data = json.loads(response.text)
-    pipelines_raw = pipelines_data['response']['pipelines']
-    # pipelines = {p['id']: {i: q['id'] for i, q in enumerate(p['statuses'].values())} for p in pipelines_raw.values() if p['is_archive'] == False} # Only active pipelines
-    pipelines = {p['id']: {i: q['id'] for i, q in enumerate(p['statuses'].values())} for p in pipelines_raw.values()} # All pipelines
-    
-    # Export data
-    url = EXPORT_URL
-    payload = {"filter": {}, "type": "csv", "encoding": ""}
-    payload['filter'] = {
-        'pipe': pipelines,
-        'tags_logic': "or",
-        'useFilter': 'y',
-    }
-    response = session.post(url, json=payload, headers=headers)
-    uuid = response.json()['uuid']
-    while True:
-        time.sleep(10)
-        response = session.get(url, headers=headers)
-        status = (response.json())['status']
-        logger.info(status)
-        if status['error_code']:
-            raise Exception(status['error_code'])
-        if status['progress'] == 100:
-            break
-    download_url = f"https://{AMO_HOST}/download/export/{uuid}"
-    return session, download_url
+        # Authenticate
+        payload = {
+            "csrf_token": CSRF_TOKEN,
+            "username": AMO_LOGIN,
+            "password": AMO_PASSWORD,
+            "temporary_auth": "N",
+        }
+        url = AUTH_URL
+        response = session.post(url, json=payload)
+        
+        # Get the list of pipelines
+        headers = {'X-Requested-With': 'XMLHttpRequest'}
+        response = session.post(PIPELINES_URL, headers=headers)
+        pipelines_data = json.loads(response.text)
+        pipelines_raw = pipelines_data['response']['pipelines']
+        # pipelines = {p['id']: {i: q['id'] for i, q in enumerate(p['statuses'].values())} for p in pipelines_raw.values() if p['is_archive'] == False} # Only active pipelines
+        pipelines = {p['id']: {i: q['id'] for i, q in enumerate(p['statuses'].values())} for p in pipelines_raw.values()} # All pipelines
+        
+        # Export data
+        url = EXPORT_URL
+        payload = {"filter": {}, "type": "csv", "encoding": ""}
+        payload['filter'] = {
+            'pipe': pipelines,
+            'tags_logic': "or",
+            'useFilter': 'y',
+        }
+        response = session.post(url, json=payload, headers=headers)
+        uuid = response.json()['uuid']
+        while True:
+            time.sleep(10)
+            response = session.get(url, headers=headers)
+            status = (response.json())['status']
+            logger.info(status)
+            if status['error_code']:
+                raise Exception(status['error_code'])
+            if status['progress'] == 100:
+                break
+        download_url = f"https://{AMO_HOST}/download/export/{uuid}"
+        return session, download_url
+    except Exception as e:
+        logger.error(f"Error: {e}")
+        return False, None
 
 # create_session_and_url()
