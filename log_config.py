@@ -1,16 +1,23 @@
 import logging
 import os
+from datetime import datetime
+from logging.handlers import TimedRotatingFileHandler
 
 log_folder = 'logs'
 if not os.path.exists(log_folder):
     os.makedirs(log_folder)
+
+# Get the current date for creating separate log files
+current_date = datetime.now().strftime('%Y-%m-%d')
 
 # Create formatters for the handlers
 formatter_default = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 formatter_debug =logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - [%(filename)s:%(lineno)d] - %(funcName)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 
 # Create a handler to save chosen logs to the logs.txt file
-file_handler = logging.FileHandler(os.path.join(log_folder, 'logs.log'))
+# file_handler = logging.FileHandler(os.path.join(log_folder, f'logs_{current_date}.log'))
+log_file_path = os.path.join(log_folder, 'logs.log')
+file_handler = TimedRotatingFileHandler(log_file_path, when="midnight", interval=1, backupCount=5)
 file_handler.setLevel(logging.INFO)
 file_handler.setFormatter(formatter_default)
 
@@ -20,7 +27,7 @@ console_handler.setLevel(logging.INFO)
 console_handler.setFormatter(formatter_default)
 
 # Create a handler to save all logs to the debug_logs.txt file and print in the console
-debug_handler = logging.FileHandler(os.path.join(log_folder, 'debug_logs.log'))
+debug_handler = logging.FileHandler(os.path.join(log_folder, 'debug_logs.log'), delay=True)
 debug_handler.setLevel(logging.DEBUG)  # Set the level to capture all logs
 debug_handler.setFormatter(formatter_debug)
 
