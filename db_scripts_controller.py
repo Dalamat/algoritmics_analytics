@@ -1,10 +1,10 @@
-from db_scripts.refresh_db_events_check_errors import refresh_db_events
-from db_scripts.refresh_db_groups_check_errors import refresh_db_groups
-from db_scripts.refresh_db_invoices_check_errors import refresh_db_invoices
-from db_scripts.refresh_db_students_check_errors import refresh_db_students
-from db_scripts.update_db_events_check_errors import update_db_events
-from db_scripts.update_db_invoices_check_errors import update_db_invocies
-from db_scripts.update_db_students_check_errors import update_db_students
+from db_scripts.refresh_db_events import refresh_db_events
+from db_scripts.refresh_db_groups import refresh_db_groups
+from db_scripts.refresh_db_invoices import refresh_db_invoices
+from db_scripts.refresh_db_students import refresh_db_students
+from db_scripts.update_db_events import update_db_events
+from db_scripts.update_db_invoices import update_db_invocies
+from db_scripts.update_db_students import update_db_students
 from db_scripts.refresh_db_leads import refresh_db_leads
 from db_scripts.refresh_db_budgets import refresh_db_budgets
 
