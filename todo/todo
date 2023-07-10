@@ -1,3 +1,4 @@
+move secrets from alembic.ini to env.py and system variables
 write tests
 add models for views
 add PowerBi templates
