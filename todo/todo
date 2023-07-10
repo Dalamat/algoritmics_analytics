@@ -3,12 +3,14 @@ write tests
 add models for views
 add PowerBi templates
 update readme file
-    MS Data gateway
+    Install python
+    Set env vars
+    PostgreSQL
     .NET CLI
         npgsql - https://github.com/npgsql/npgsql/releases/tag/v4.0.10
             GAC Installation - during the wizard
+    MS Data gateway
     PowerBI
-    PostgreSQL
     Google service acc - https://docs.gspread.org/en/latest/oauth2.html#enable-api-access
         Data formats (date, sum)
 add proper error handling - Done
