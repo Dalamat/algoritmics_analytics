@@ -15,3 +15,5 @@ setx gcp_spreadsheet_id "gcp_spreadsheet_id"
 setx telegram_bot_token "telegram_bot_token"
 setx telegram_group "telegram_group"
 setx telegram_mentions "telegram_mentions"
+
+setx PYTHONPATH "PYTHONPATH"
