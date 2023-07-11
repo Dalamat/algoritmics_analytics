@@ -50,6 +50,11 @@ def task_update_budgets_full():
     update_table(**PARAMETER_SETS["budgets_full"])
     logger.info ("Finished budgets_full task")
 
+def task_update_payments_full():
+    logger.info("Starting payments_full task")
+    update_table(**PARAMETER_SETS["payments_full"])
+    logger.info ("Finished payments_full task")
+
 if __name__ == "__main__":
     executors = {
         'default': ThreadPoolExecutor(10)
@@ -73,6 +78,7 @@ if __name__ == "__main__":
     scheduler.add_job(task_update_invoices_full, 'cron', minute='0', hour='0', misfire_grace_time=misfire_grace_time)
     scheduler.add_job(task_update_students_full, 'cron', minute='0', hour='0', misfire_grace_time=misfire_grace_time)
     scheduler.add_job(task_update_leads_full, 'cron', minute='0', hour='0', misfire_grace_time=misfire_grace_time)
+    scheduler.add_job(task_update_payments_full, 'cron', minute='0', hour='0', misfire_grace_time=misfire_grace_time)
 
     # Run hourly
     scheduler.add_job(heartbeat, 'cron', minute='0', hour='0-23', misfire_grace_time=misfire_grace_time)
