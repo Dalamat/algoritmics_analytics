@@ -13,6 +13,8 @@ update readme file
     PowerBI
     Google service acc - https://docs.gspread.org/en/latest/oauth2.html#enable-api-access
         Data formats (date, sum)
+add payments update task - Done
+add payments filter script and task - Done
 add proper error handling - Done
 refactor csv_path and output_path - Done
 move AMO data to DB - in progress (configure budget table update) - Done

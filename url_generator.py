@@ -10,6 +10,7 @@ bo_csv_url_invoices_filter = f"https://backoffice.algoritmika.org/payment/manage
 
 bo_csv_url_students_filter = f"https://backoffice.algoritmika.org/student?StudentSearch%5Bid%5D=&StudentSearch%5Bupdated_at%5D={start_date}%20-%20{end_date}&export=true&name=default&exportType=csv"
 
+bo_csv_url_payments_filter = f"https://backoffice.algoritmika.org/payment/manage?PaymentSearch%5Bid%5D=&PaymentSearch%5Bcreated_at%5D=&PaymentSearch%5BpaymentCreatedAtStart%5D=&PaymentSearch%5BpaymentCreatedAtEnd%5D=&PaymentSearch%5Bupdated_at%5D={start_date}%20-%20{end_date}&PaymentSearch%5BpaymentUpdatedAtStart%5D={start_date}&PaymentSearch%5BpaymentUpdatedAtEnd%5D={end_date}&export=true&name=default&exportType=csv"
 
 # Output the URL
 #print(bo_csv_url_invoices_filter, bo_csv_url_students_filter)

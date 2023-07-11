@@ -27,7 +27,8 @@ PARAMETER_SETS = {
     "leads_full_silent":{"csv_url":None,"output_path":paths.leads_csv_path,"table_name":"LEADS FULL","db_script_function":"refresh_db_leads","source":"AMO","send_messages":False},
     "budgets_full":{"csv_url":None,"output_path":paths.budgets_csv_path,"table_name":"BUDGETS FULL","db_script_function":"refresh_db_budgets","source":"GCP","send_messages":True},
     "budgets_full_silent":{"csv_url":None,"output_path":paths.budgets_csv_path,"table_name":"BUDGETS FULL","db_script_function":"refresh_db_budgets","source":"GCP","send_messages":False},
-    "payments_full":{"csv_url":paths.bo_csv_url_payments,"output_path":paths.payments_csv_path,"table_name":"PAYMENTS FULL","db_script_function":"refresh_db_payments","send_messages":True}
+    "payments_full":{"csv_url":paths.bo_csv_url_payments,"output_path":paths.payments_csv_path,"table_name":"PAYMENTS FULL","db_script_function":"refresh_db_payments","send_messages":True},
+    "payments_filter":{"csv_url":paths.bo_csv_url_payments_filter,"output_path":paths.payments_filter_csv_path,"table_name":"PAYMENTS UPDATES","db_script_function":"update_db_payments","send_messages":True}
 }
 
 
@@ -77,3 +78,4 @@ if __name__ == "__main__":
 # update_table(**PARAMETER_SETS["leads_full"])
 # update_table(**PARAMETER_SETS["budgets_full"])
 # update_table(**PARAMETER_SETS["payments_full"])
+# update_table(**PARAMETER_SETS["payments_filter"])

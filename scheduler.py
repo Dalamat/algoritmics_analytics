@@ -55,6 +55,11 @@ def task_update_payments_full():
     update_table(**PARAMETER_SETS["payments_full"])
     logger.info ("Finished payments_full task")
 
+def task_update_payments_filter():
+    logger.info("Starting payments_filter task")
+    update_table(**PARAMETER_SETS["payments_filter"])
+    logger.info ("Finished payments_filter task")
+
 if __name__ == "__main__":
     executors = {
         'default': ThreadPoolExecutor(10)
@@ -71,6 +76,7 @@ if __name__ == "__main__":
     scheduler.add_job(task_update_students_filter, 'cron', minute='25,55', hour='6-22', misfire_grace_time=misfire_grace_time)
     scheduler.add_job(task_update_leads_full, 'cron', minute='25,55', hour='6-22', misfire_grace_time=misfire_grace_time)
     scheduler.add_job(task_update_budgets_full, 'cron', minute='25,55', hour='6-22', misfire_grace_time=misfire_grace_time)
+    scheduler.add_job(task_update_payments_filter, 'cron', minute='25,55', hour='6-22', misfire_grace_time=misfire_grace_time)
 
     # Run once a day at midnight
     scheduler.add_job(task_update_groups_full, 'cron', minute='0', hour='0', misfire_grace_time=misfire_grace_time)

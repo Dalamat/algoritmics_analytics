@@ -13,6 +13,7 @@ bo_csv_url_payments = "https://backoffice.algoritmika.org/payment/manage?export=
 bo_csv_url_events_filter = "https://backoffice.algoritmika.org/group/default/schedule?GroupLessonSearch%5Bgroup.status%5D%5B%5D=active&GroupLessonSearch%5Bgroup.status%5D%5B%5D=recruiting&timeframe=all&export=true&name=default&exportType=csv"
 bo_csv_url_invoices_filter = url_generator.bo_csv_url_invoices_filter
 bo_csv_url_students_filter = url_generator.bo_csv_url_students_filter
+bo_csv_url_payments_filter = url_generator.bo_csv_url_payments_filter
 
 # Get environment varibales
 root_floder = envs.root_folder
@@ -29,3 +30,4 @@ students_filter_csv_path = os.path.join(active_folder,envs.file_students_filter)
 leads_csv_path = os.path.join(active_folder, envs.file_leads)
 budgets_csv_path = os.path.join(active_folder, envs.file_budgets)
 payments_csv_path = os.path.join(active_folder, envs.file_payments)
+payments_filter_csv_path = os.path.join(active_folder, envs.file_payments_filter)

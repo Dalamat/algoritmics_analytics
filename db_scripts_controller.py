@@ -8,6 +8,7 @@ from db_scripts.update_db_students import update_db_students
 from db_scripts.refresh_db_leads import refresh_db_leads
 from db_scripts.refresh_db_budgets import refresh_db_budgets
 from db_scripts.refresh_db_payments import refresh_db_payments
+from db_scripts.update_db_payments import update_db_payments
 
 SCRIPT_FUNCTIONS = {
     "refresh_db_events": refresh_db_events,
@@ -19,7 +20,8 @@ SCRIPT_FUNCTIONS = {
     "update_db_students": update_db_students,
     "refresh_db_leads": refresh_db_leads,
     "refresh_db_budgets": refresh_db_budgets,
-    "refresh_db_payments" : refresh_db_payments
+    "refresh_db_payments" : refresh_db_payments,
+    "update_db_payments" : update_db_payments
 }
 
 def db_scripts(script_function):
@@ -41,4 +43,5 @@ def db_scripts(script_function):
 # db_scripts("update_db_students")
 # db_scripts("refresh_db_leads")
 # db_scripts("refresh_db_budgets")
+# db_scripts("refresh_db_payments")
 # db_scripts("refresh_db_payments")
