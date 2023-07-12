@@ -39,14 +39,14 @@ def download_file(url, output_path, source="BO", chunk_size=1024*1024):
                         f.write(data)
                 except Exception as e:
                     progress.close()
-                    logger.error("Error occurred while downloading the CSV file due to an exception:", e)
+                    logger.error(f"Error occurred while downloading the CSV file due to an exception: {e}")
                     return False
             progress.close()
             if size_provided and progress.n != progress.total:
-                logger.error("Error occurred while downloading the CSV file.",progress.n,"!=",progress.total)
+                logger.error(f"Error occurred while downloading the CSV file. {progress.n} != {progress.total}")
                 return False
             else:
-                logger.info("CSV file downloaded successfully to", output_path)
+                logger.info(f"CSV file downloaded successfully to {output_path}")
                 return True
         else:
                 logger.error(f"Failed to obtain a session for {source}")
