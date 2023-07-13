@@ -1,6 +1,7 @@
 import psycopg2
 from algoritmics_analytics import paths
 from algoritmics_analytics import envs
+from log_config import logger
 
 
 def update_db_students():
@@ -79,7 +80,7 @@ def update_db_students():
             cur.copy_expert("COPY public.\"temp_students\" FROM STDIN delimiter ';' encoding 'utf-8' csv header escape '\\' quote '\"'", f)
 
         v_count = cur.rowcount
-        print(f"COPY STUDENTS {v_count}")
+        logger.info(f"COPY STUDENTS {v_count}")
 
         # Update existing students
         cur.execute("""
@@ -135,7 +136,7 @@ def update_db_students():
         """)
 
         v_count = cur.rowcount
-        print(f"UPDATED STUDENTS {v_count}")
+        logger.info(f"UPDATED STUDENTS {v_count}")
 
         # Insert new students
         cur.execute("""
@@ -164,7 +165,7 @@ def update_db_students():
         """)
 
         v_count = cur.rowcount
-        print(f"INSERTED STUDENTS {v_count}")
+        logger.info(f"INSERTED STUDENTS {v_count}")
 
         # Drop temp_students table
         cur.execute('DROP TABLE public."temp_students";')
@@ -176,8 +177,8 @@ def update_db_students():
     except Exception as e:
         # If any errors occur, roll back the transaction
         conn.rollback()
-        print(f"Error: {e}")
-        print("ROLLBACK CHANGES STUDENTS")
+        logger.error(f"Error during STUDENTS UPDATE: {e}")
+        logger.warning("ROLLBACK CHANGES STUDENTS")
         return False
     
     finally:

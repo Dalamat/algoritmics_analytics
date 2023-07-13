@@ -1,6 +1,7 @@
 import psycopg2
 from algoritmics_analytics import paths
 from algoritmics_analytics import envs
+from log_config import logger
 
 
 def refresh_db_students():
@@ -24,7 +25,7 @@ def refresh_db_students():
 
         # Truncate the table
         cur.execute('TRUNCATE public."students";')
-        print('TRUNCATE TABLE STUDENTS')
+        logger.info('TRUNCATE TABLE STUDENTS')
 
         # Copy data from the csv file to the students table
         with open(csv_path, 'r', encoding='utf-8') as f:
@@ -32,7 +33,7 @@ def refresh_db_students():
 
         # Get the number of rows affected
         row_count = cur.rowcount
-        print(f"COPY STUDENTS {row_count}")
+        logger.info(f"COPY STUDENTS {row_count}")
 
         # Commit the changes
         conn.commit()
@@ -41,8 +42,8 @@ def refresh_db_students():
     except Exception as e:
         # If any errors occur, roll back the transaction
         conn.rollback()
-        print(f"Error: {e}")
-        print("ROLLBACK CHANGES STUDENTS")
+        logger.error(f"Error during STUDENTS REFRESH: {e}")
+        logger.warning("ROLLBACK CHANGES STUDENTS")
         return False
 
     finally:

@@ -1,6 +1,7 @@
 import psycopg2
 from algoritmics_analytics import paths
 from algoritmics_analytics import envs
+from log_config import logger
 
 
 def refresh_db_payments():
@@ -24,7 +25,7 @@ def refresh_db_payments():
 
         # Truncate the table
         cur.execute('TRUNCATE public."payments";')
-        print('TRUNCATE TABLE PAYMENTS')
+        logger.info('TRUNCATE TABLE PAYMENTS')
 
         # Copy data from the csv file
         with open(csv_path, 'r', encoding='utf-8') as f:
@@ -32,7 +33,7 @@ def refresh_db_payments():
 
         # Get the number of rows affected
         row_count = cur.rowcount
-        print(f"COPY PAYMENTS {row_count}")
+        logger.info(f"COPY PAYMENTS {row_count}")
 
         # Commit the changes
         conn.commit()
@@ -41,8 +42,8 @@ def refresh_db_payments():
     except Exception as e:
         # If any errors occur, roll back the transaction
         conn.rollback()
-        print(f"Error: {e}")
-        print("ROLLBACK CHANGES PAYMENTS")
+        logger.error(f"Error during PAYMENTS REFRESH: {e}")
+        logger.warning("ROLLBACK CHANGES PAYMENTS")
         return False
 
     finally:

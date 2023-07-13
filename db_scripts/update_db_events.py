@@ -1,6 +1,7 @@
 import psycopg2
 from algoritmics_analytics import paths
 from algoritmics_analytics import envs
+from log_config import logger
 
 
 def update_db_events():
@@ -61,7 +62,7 @@ def update_db_events():
             cur.copy_expert("COPY public.\"temp_events\" FROM STDIN delimiter ';' encoding 'utf-8' csv header escape '\\' quote '\"'", f)
 
         v_count = cur.rowcount
-        print(f"COPY EVENTS {v_count}")
+        logger.info(f"COPY EVENTS {v_count}")
 
         # Step 3: Delete the rows in the main table that have matching IDs with the temporary table
         cur.execute('''
@@ -70,7 +71,7 @@ def update_db_events():
         ''')
 
         v_count = cur.rowcount
-        print(f"DELETE EVENTS {v_count}")
+        logger.info(f"DELETE EVENTS {v_count}")
 
         # Step 4: Insert the data from the temporary table into the main table
         cur.execute('''
@@ -89,7 +90,7 @@ def update_db_events():
         ''')
 
         v_count = cur.rowcount
-        print(f"INSERT EVENTS {v_count}")
+        logger.info(f"INSERT EVENTS {v_count}")
 
         # Step 5: Drop the temporary table
         cur.execute('''
@@ -103,8 +104,8 @@ def update_db_events():
     except Exception as e:
         # If any errors occur, roll back the transaction
         conn.rollback()
-        print(f"Error: {e}")
-        print("ROLLBACK CHANGES EVENTS")
+        logger.error(f"Error during EVENTS UPDATE: {e}")
+        logger.warning("ROLLBACK CHANGES EVENTS")
         return False
 
     finally:

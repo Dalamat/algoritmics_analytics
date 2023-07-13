@@ -1,6 +1,7 @@
 import psycopg2
 from algoritmics_analytics import paths
 from algoritmics_analytics import envs
+from log_config import logger
 
 
 def update_db_payments():
@@ -56,7 +57,7 @@ def update_db_payments():
             cur.copy_expert("COPY public.\"temp_payments\" FROM STDIN delimiter ';' encoding 'utf-8' csv header escape '\\' quote '\"'", f)
 
         v_count = cur.rowcount
-        print(f"COPY PAYMENTS {v_count}")
+        logger.info(f"COPY PAYMENTS {v_count}")
 
         # Update existing payments
         cur.execute("""
@@ -89,7 +90,7 @@ def update_db_payments():
         """)
 
         v_count = cur.rowcount
-        print(f"UPDATED PAYMENTS {v_count}")
+        logger.info(f"UPDATED PAYMENTS {v_count}")
 
         # Insert new payments
         cur.execute("""
@@ -114,7 +115,7 @@ def update_db_payments():
         """)
 
         v_count = cur.rowcount
-        print(f"INSERTED PAYMENTS {v_count}")
+        logger.info(f"INSERTED PAYMENTS {v_count}")
 
         # Drop temp_payments table
         cur.execute('DROP TABLE public."temp_payments";')
@@ -126,8 +127,8 @@ def update_db_payments():
     except Exception as e:
         # If any errors occur, roll back the transaction
         conn.rollback()
-        print(f"Error: {e}")
-        print("ROLLBACK CHANGES PAYMENTS")
+        logger.error(f"Error during PAYMENTS UPDATE: {e}")
+        logger.warning("ROLLBACK CHANGES PAYMENTS")
         return False
 
     finally:

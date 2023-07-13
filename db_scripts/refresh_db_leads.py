@@ -1,6 +1,7 @@
 import psycopg2
 from algoritmics_analytics import paths
 from algoritmics_analytics import envs
+from log_config import logger
 
 
 def refresh_db_leads():
@@ -24,7 +25,7 @@ def refresh_db_leads():
 
         # Truncate the table
         cur.execute('TRUNCATE public."leads";')
-        print('TRUNCATE TABLE LEADS')
+        logger.info('TRUNCATE TABLE LEADS')
 
         # Copy data from the csv file to the table
         with open(csv_path, 'r', encoding='utf-8') as f:
@@ -33,7 +34,7 @@ def refresh_db_leads():
 
         # Get the number of rows affected
         row_count = cur.rowcount
-        print(f"COPY LEADS {row_count}")
+        logger.info(f"COPY LEADS {row_count}")
 
         # Commit the changes
         conn.commit()
@@ -42,8 +43,8 @@ def refresh_db_leads():
     except Exception as e:
         # If any errors occur, roll back the transaction
         conn.rollback()
-        print(f"Error: {e}")
-        print("ROLLBACK CHANGES LEADS")
+        logger.error(f"Error during LEADS REFRESH: {e}")
+        logger.warning("ROLLBACK CHANGES LEADS")
         return False
 
     finally:

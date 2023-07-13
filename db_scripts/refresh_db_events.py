@@ -1,6 +1,7 @@
 import psycopg2
 from algoritmics_analytics import paths
 from algoritmics_analytics import envs
+from log_config import logger
 
 
 def refresh_db_events():
@@ -24,7 +25,7 @@ def refresh_db_events():
 
         # Truncate the table
         cur.execute('TRUNCATE public."events";')
-        print('TRUNCATE TABLE EVENTS')
+        logger.info('TRUNCATE TABLE EVENTS')
 
         # Copy data from the csv file to the events table
         with open(csv_path, 'r', encoding='utf-8') as f:
@@ -32,7 +33,7 @@ def refresh_db_events():
 
         # Get the number of rows affected
         row_count = cur.rowcount
-        print(f"COPY EVENTS {row_count}")
+        logger.info(f"COPY EVENTS {row_count}")
 
         # Commit the changes
         conn.commit()
@@ -41,8 +42,8 @@ def refresh_db_events():
     except Exception as e:
         # If any errors occur, roll back the transaction
         conn.rollback()
-        print(f"Error: {e}")
-        print("ROLLBACK CHANGES EVENTS")
+        logger.error(f"Error during EVENTS REFRESH: {e}")
+        logger.warning("ROLLBACK CHANGES EVENTS")
         return False
 
     finally:

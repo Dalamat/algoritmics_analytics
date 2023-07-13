@@ -1,6 +1,7 @@
 import psycopg2
 from algoritmics_analytics import paths
 from algoritmics_analytics import envs
+from log_config import logger
 
 
 def refresh_db_budgets():
@@ -24,7 +25,7 @@ def refresh_db_budgets():
 
         # Truncate the table
         cur.execute('TRUNCATE public."budget";')
-        print('TRUNCATE TABLE BUDGETS')
+        logger.info('TRUNCATE TABLE BUDGETS')
 
         # Copy data from the csv file
         with open(csv_path, 'r', encoding='utf-8') as f:
@@ -32,7 +33,7 @@ def refresh_db_budgets():
 
         # Get the number of rows affected
         row_count = cur.rowcount
-        print(f"COPY BUDGETS {row_count}")
+        logger.info(f"COPY BUDGETS {row_count}")
 
         # Commit the changes
         conn.commit()
@@ -41,8 +42,8 @@ def refresh_db_budgets():
     except Exception as e:
         # If any errors occur, roll back the transaction
         conn.rollback()
-        print(f"Error: {e}")
-        print("ROLLBACK CHANGES BUDGETS")
+        logger.error(f"Error during BUDGETS REFRESH: {e}")
+        logger.warning("ROLLBACK CHANGES BUDGETS")
         return False
 
     finally:

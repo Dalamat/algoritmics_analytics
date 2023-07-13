@@ -1,6 +1,7 @@
 import psycopg2
 from algoritmics_analytics import paths
 from algoritmics_analytics import envs
+from log_config import logger
 
 
 def refresh_db_invoices():
@@ -24,7 +25,7 @@ def refresh_db_invoices():
 
         # Truncate the table
         cur.execute('TRUNCATE public."invoices";')
-        print('TRUNCATE TABLE INVOICES')
+        logger.info('TRUNCATE TABLE INVOICES')
 
         # Copy data from the csv file to the invoices table
         with open(csv_path, 'r', encoding='utf-8') as f:
@@ -32,7 +33,7 @@ def refresh_db_invoices():
 
         # Get the number of rows affected
         row_count = cur.rowcount
-        print(f"COPY INVOICES {row_count}")
+        logger.info(f"COPY INVOICES {row_count}")
 
         # Commit the changes
         conn.commit()
@@ -41,8 +42,8 @@ def refresh_db_invoices():
     except Exception as e:
         # If any errors occur, roll back the transaction
         conn.rollback()
-        print(f"Error: {e}")
-        print("ROLLBACK CHANGES INVOICES")
+        logger.error(f"Error during INVOICES REFRESH: {e}")
+        logger.warning("ROLLBACK CHANGES INVOICES")
         return False
 
     finally:
