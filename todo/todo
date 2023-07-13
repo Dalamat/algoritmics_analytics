@@ -1,3 +1,4 @@
+convert prints to logs in db_scripts
 move secrets from alembic.ini to env.py and system variables
 write tests
 add models for views
