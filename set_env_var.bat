@@ -2,6 +2,8 @@
 setx database "database"
 setx db_user "db_user"
 setx db_password "db_password"
+setx db_host "db_host"
+setx db_port "db_port"
 
 setx bo_login "bo_login"
 setx bo_password "bo_password"

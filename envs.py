@@ -4,8 +4,8 @@ import os
 #Adjust root_folder and active_folder based on your preferences
 
 #Folders
-root_folder = "C:\\Cream\\algoritmics_analytics\\"
-active_folder = "C:\\Cream\\Active\\"
+root_folder = "D:\\Git\\algoritmics_analytics\\"
+active_folder = "D:\\Cream\\Active\\"
 
 #Source files names
 file_events = "Events.csv"
@@ -24,8 +24,8 @@ file_budgets = "Budgets.csv"
 database = os.environ.get("database")
 db_user = os.environ.get("db_user")
 db_password = os.environ.get("db_password")
-db_host = "localhost"
-db_port = "5432"
+db_host = os.environ.get("db_host")
+db_port = os.environ.get("db_port")
 
 #Backoffice account
 bo_login = os.environ.get("bo_login")
