@@ -11,9 +11,6 @@ bo_csv_url_invoices = "https://backoffice.algoritmika.org/payment/manage/invoice
 bo_csv_url_students = "https://backoffice.algoritmika.org/student?export=true&name=default&exportType=csv"
 bo_csv_url_payments = "https://backoffice.algoritmika.org/payment/manage?export=true&name=default&exportType=csv"
 bo_csv_url_events_filter = "https://backoffice.algoritmika.org/group/default/schedule?GroupLessonSearch%5Bgroup.status%5D%5B%5D=active&GroupLessonSearch%5Bgroup.status%5D%5B%5D=recruiting&timeframe=all&export=true&name=default&exportType=csv"
-bo_csv_url_invoices_filter = url_generator.bo_csv_url_invoices_filter
-bo_csv_url_students_filter = url_generator.bo_csv_url_students_filter
-bo_csv_url_payments_filter = url_generator.bo_csv_url_payments_filter
 
 # Get environment varibales
 root_floder = envs.root_folder
