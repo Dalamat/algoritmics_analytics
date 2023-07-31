@@ -21,7 +21,7 @@ def download_file(url, output_path, source="BO", chunk_size=1024*1024):
                 logger.info(f"Data downloaded successfully to {output_path}")
                 return True
             else:
-                logger.error(f"Downloading failed. {output_path}")
+                logger.warning(f"Downloading failed. {output_path}")
                 return False
     else:
         logger.error(f"Wrong source - {source}. Must be BO or AMO")
@@ -39,18 +39,18 @@ def download_file(url, output_path, source="BO", chunk_size=1024*1024):
                         f.write(data)
                 except Exception as e:
                     progress.close()
-                    logger.error(f"Error occurred while downloading the CSV file to {output_path} due to an exception: {e}")
+                    logger.warning(f"Err occurred while downloading the CSV file to {output_path} due to an exception: {e}")
                     return False
             progress.close()
             if size_provided and progress.n != progress.total:
-                logger.error(f"Error occurred while downloading the CSV file to {output_path}. {progress.n} != {progress.total}")
+                logger.warning(f"Err occurred while downloading the CSV file to {output_path}. {progress.n} != {progress.total}")
                 return False
             else:
                 logger.info(f"CSV file downloaded successfully to {output_path}")
                 return True
         else:
-                logger.error(f"Failed to obtain a respone for {output_path} in {source}")
+                logger.warning(f"Failed to obtain a respone for {output_path} in {source}")
                 return False
     else:
-        logger.error(f"Failed to obtain a session for {source}")
+        logger.warning(f"Failed to obtain a session for {source}")
         return False
