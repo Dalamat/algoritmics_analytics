@@ -133,7 +133,7 @@ def upgrade() -> None:
             utm_campaign varchar(255) NULL,
             formid varchar(255) NULL,
             referer text NULL,
-            tranid varchar(255) NULL,
+            tranid text NULL,
             "Адрес страницы" varchar(255) NULL,
             "Форма" varchar(255) NULL,
             ym_client_id varchar(255) NULL,
