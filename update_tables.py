@@ -27,8 +27,6 @@ PARAMETER_SETS = {
 def update_table(output_path, table_name, db_script_function, source="BO", send_messages=True):
     csv_url = get_urls(table_name)
     logger.info(f"Download started. Table: {table_name} | URL: {csv_url}")
-    # if send_messages:
-    #     asyncio.run(send_group_message(table_name+" "+"Started*"))
     attempt = 1
     while attempt <= 5:
         logger.debug(f"Attempt {attempt}")
@@ -36,12 +34,11 @@ def update_table(output_path, table_name, db_script_function, source="BO", send_
             logger.info(f"Proceed to DB update. {table_name}")
             if db_scripts(db_script_function):
                 logger.info(f"Table updated successfully. {table_name}")
-                # if send_messages:
-                #     asyncio.run(send_group_message(table_name+" "+"Updated*"))
             else:
-                logger.error(f"Table update failed. {table_name}")                    
+                logger.error(f"Table update failed. {table_name}")
                 if send_messages:
-                    asyncio.run(send_group_message(table_name+" "+"Script Failed*"+" "+envs.telegram_mentions+" "+"(Cloud)"))
+                    message = f"{table_name}. Script Failed. ENV: {envs.environment}. Attention: {envs.telegram_mentions}"
+                    asyncio.run(send_group_message(message))
             break
         else:
             logger.warning(f"Attempt {attempt}. Download failed. {table_name}")
@@ -49,7 +46,8 @@ def update_table(output_path, table_name, db_script_function, source="BO", send_
     else:
         logger.error(f"Download stopped after {attempt-1} attempts. {table_name}")
         if send_messages:
-            asyncio.run(send_group_message(table_name+" "+"Download Failed*"+" "+envs.telegram_mentions+" "+"(Cloud)"))
+            message = f"{table_name}. Download Failed. ENV: {envs.environment}. Attention: {envs.telegram_mentions}"
+            asyncio.run(send_group_message(message))
 
 
 if __name__ == "__main__":

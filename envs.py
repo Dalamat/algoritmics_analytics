@@ -3,9 +3,12 @@ import os
 #Please create OS environmental variables for the secrets or populate them directly
 #Adjust root_folder and active_folder based on your preferences
 
+#Environment
+environment = "Cloud"
+
 #Folders
-root_folder = "D:\\Git\\algoritmics_analytics\\"
-active_folder = "D:\\Cream\\Active\\"
+root_folder = "C:\\Git\\algoritmics_analytics\\"
+active_folder = "C:\\Cream\\Active\\"
 
 #Source files names
 file_events = "Events.csv"
