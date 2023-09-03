@@ -13,6 +13,10 @@ move secrets from alembic.ini to env.py and system variables
 write tests
 add models for views
 add PowerBi templates
+move csv_url inside update_table function - Done
+    generate all urls in url_generator - Done
+    remove csv_url from update_table parameter set - Done
+    incorporate csv_url in update_table via url_generator - Done
 convert prints to logs in db_scripts - Done
 add payments update task - Done
 add payments filter script and task - Done

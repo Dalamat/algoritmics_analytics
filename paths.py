@@ -1,6 +1,5 @@
 import os
 import envs
-import url_generator
 
 #LMS (BO) urls
 bo_auth_url = "https://backoffice.algoritmika.org/s/auth/api/e/user/auth"
