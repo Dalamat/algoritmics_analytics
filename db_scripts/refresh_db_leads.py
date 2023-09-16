@@ -36,11 +36,9 @@ def refresh_db_leads():
         columns_sql += f'"{col}" text,'
     columns_sql = columns_sql[:-1]
 
-    print(columns_sql)
-
     # Print the number of columns
     num_columns = columns_sql.count(",") + 1
-    print(f"The number of columns is {num_columns}")
+    logger.info(f"The number of columns is {num_columns}")
 
     # Connect to the database psql -h  -U  -d 
     conn = psycopg2.connect(database=database, user=user, password=password, host=host, port=port)
