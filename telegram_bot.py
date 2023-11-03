@@ -2,10 +2,9 @@
 Basic example for a bot that uses inline keyboards. For an in-depth explanation, check out
  https://github.com/python-telegram-bot/python-telegram-bot/wiki/InlineKeyboard-Example.
 """
-from log_config import logger
+from log_config_tg import logger
 import logging
 
-import asyncio
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CallbackQueryHandler, CommandHandler, ContextTypes
 from telegram_client import send_group_message
@@ -23,7 +22,10 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             InlineKeyboardButton("Invoices Partial", callback_data="Invoices Partial"),
             InlineKeyboardButton("Invoices Full", callback_data="Invoices Full"),
         ],
-        [InlineKeyboardButton("AMO Leads Full", callback_data="AMO Leads Full")],
+        [
+            InlineKeyboardButton("AMO Leads", callback_data="AMO Leads"),
+            InlineKeyboardButton("AMO Budgets", callback_data="AMO Budgets")
+        ],
     ]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -50,8 +52,10 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             update_table(**PARAMETER_SETS["invoices_filter"])
         case "Invoices Full":
             update_table(**PARAMETER_SETS["invoices_full"])
-        case "AMO Leads Full":
+        case "AMO Leads":
             update_table(**PARAMETER_SETS["leads_full"])
+        case "AMO Budgets":
+            update_table(**PARAMETER_SETS["budgets_full"])
     logger.info(f"{data} update has been completed")
     await send_group_message(f"{data} update has been completed. @{username}")
 
