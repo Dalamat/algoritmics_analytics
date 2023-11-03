@@ -11,8 +11,6 @@ from telegram_client import send_group_message
 import envs
 from update_tables import update_table, PARAMETER_SETS
 
-logging.getLogger("httpx").setLevel(logging.WARNING)
-
 TOKEN = envs.telegram_bot_token
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

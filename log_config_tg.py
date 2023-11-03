@@ -22,9 +22,9 @@ file_handler.setLevel(logging.INFO)
 file_handler.setFormatter(formatter_default)
 
 # Create a handler to print the chosen logs in console
-console_handler = logging.StreamHandler()
-console_handler.setLevel(logging.INFO)
-console_handler.setFormatter(formatter_default)
+# console_handler = logging.StreamHandler()
+# console_handler.setLevel(logging.INFO)
+# console_handler.setFormatter(formatter_default)
 
 # Create a handler to save all logs to the debug_logs.txt file and print in the console
 debug_handler = logging.FileHandler(os.path.join(log_folder, 'debug_logs.log'), delay=True)
@@ -35,5 +35,7 @@ debug_handler.setFormatter(formatter_debug)
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)  # Set the root logger level to capture all logs
 logger.addHandler(file_handler)
-logger.addHandler(console_handler)
+# logger.addHandler(console_handler)
 # logger.addHandler(debug_handler) # Uncomment this line to enable the debug logger
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logger.propagate = False  # Prevent log events from being passed to the parent loggers
