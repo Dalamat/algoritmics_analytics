@@ -170,6 +170,7 @@ gcp_sa_key.json
 
 # Logs
 logs/
+logs_tg/
 
 # Hidden files
 *_hid.*
