@@ -13,11 +13,22 @@ from update_tables import update_table, PARAMETER_SETS
 TOKEN = envs.telegram_bot_token
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Sends a message with three inline buttons attached."""
+    """Sends a message with available commands"""
     keyboard = [
         [
-            InlineKeyboardButton("Invoices Partial", callback_data="Invoices Partial"),
-            InlineKeyboardButton("Invoices Full", callback_data="Invoices Full"),
+            InlineKeyboardButton("🕐📄Invoices Partial", callback_data="Invoices Partial"),
+            InlineKeyboardButton("📄Invoices Full", callback_data="Invoices Full"),
+        ],
+        [
+            InlineKeyboardButton("🕐👨‍🎓Students Partial", callback_data="Students Partial"),
+            InlineKeyboardButton("👨‍🎓Students Full", callback_data="Students Full")
+        ],
+        [
+            InlineKeyboardButton("🕐👩‍💻Events Partial", callback_data="Events Partial"),
+            InlineKeyboardButton("👩‍💻Events Full", callback_data="Events Full")
+        ],
+        [
+            InlineKeyboardButton("👥Groups Full", callback_data="Groups Full")
         ],
         [
             InlineKeyboardButton("AMO Leads", callback_data="AMO Leads"),
@@ -49,6 +60,16 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             update_table(**PARAMETER_SETS["invoices_filter"])
         case "Invoices Full":
             update_table(**PARAMETER_SETS["invoices_full"])
+        case "Students Partial":
+            update_table(**PARAMETER_SETS["students_filter"])
+        case "Students Full":
+            update_table(**PARAMETER_SETS["students_full"])
+        case "Events Partial":
+            update_table(**PARAMETER_SETS["events_filter"])
+        case "Events Full":
+            update_table(**PARAMETER_SETS["events_full"])
+        case "Groups Full":
+            update_table(**PARAMETER_SETS["groups_full"])
         case "AMO Leads":
             update_table(**PARAMETER_SETS["leads_full"])
         case "AMO Budgets":
