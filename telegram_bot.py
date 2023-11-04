@@ -2,8 +2,7 @@
 Basic example for a bot that uses inline keyboards. For an in-depth explanation, check out
  https://github.com/python-telegram-bot/python-telegram-bot/wiki/InlineKeyboard-Example.
 """
-from log_config_tg import logger
-import logging
+from log_config_tg import logger_tg
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CallbackQueryHandler, CommandHandler, ContextTypes
@@ -43,7 +42,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     # CallbackQueries need to be answered, even if no notification to the user is needed
     # Some clients may have trouble otherwise. See https://core.telegram.org/bots/api#callbackquery
 
-    logger.info(f"{data} update has been requested by {username} via BOT")
+    logger_tg.info(f"{data} update has been requested by {username} via BOT")
     await send_group_message(f"{data} update has been requested by @{username} via BOT")
     match data:
         case "Invoices Partial":
@@ -54,7 +53,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             update_table(**PARAMETER_SETS["leads_full"])
         case "AMO Budgets":
             update_table(**PARAMETER_SETS["budgets_full"])
-    logger.info(f"{data} update has been completed")
+    logger_tg.info(f"{data} update has been completed")
     await send_group_message(f"{data} update has been completed. @{username}")
 
     await context.bot.send_message(chat_id, text=f"Selected option: {data}. Finished")
