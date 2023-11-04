@@ -24,13 +24,14 @@ PARAMETER_SETS = {
 }
 
 def run_coroutine(coroutine):
-    if asyncio.get_running_loop() is None:
-        asyncio.run(coroutine)
-    else:
-        loop = asyncio.get_event_loop()
+    loop = asyncio.get_event_loop()
+    if loop.is_running():
         loop.create_task(coroutine)
+    else:
+        loop.run_until_complete(coroutine)
 
 def update_table(output_path, table_name, db_script_function, source="BO", send_messages=True):
+    # run_coroutine(send_group_message(f"{table_name} Started"))
     csv_url = get_urls(table_name)
     logger.info(f"Download started. Table: {table_name} | URL: {csv_url}")
     attempt = 1
