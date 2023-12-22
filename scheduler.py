@@ -35,6 +35,11 @@ def task_update_invoices_filter():
     update_table(**PARAMETER_SETS["invoices_filter"])
     logger.info("Finished invoices_filter task")  
 
+def task_update_invoices_filter_2():
+    logger.info("Starting invoices_filter_2 task")
+    update_table(**PARAMETER_SETS["invoices_filter_2"])
+    logger.info("Finished invoices_filter_2 task")  
+
 def task_update_students_filter():
     logger.info("Starting students_filter task")
     update_table(**PARAMETER_SETS["students_filter"])
@@ -73,6 +78,7 @@ if __name__ == "__main__":
     scheduler.add_job(task_update_groups_full, 'cron', minute='25,55', hour='0-23', misfire_grace_time=misfire_grace_time)
     scheduler.add_job(task_update_events_filter, 'cron', minute='25,55', hour='0-23', misfire_grace_time=misfire_grace_time)
     scheduler.add_job(task_update_invoices_filter, 'cron', minute='25,55', hour='0-23', misfire_grace_time=misfire_grace_time)
+    scheduler.add_job(task_update_invoices_filter_2, 'cron', minute='25,55', hour='0-23', misfire_grace_time=misfire_grace_time)
     scheduler.add_job(task_update_students_filter, 'cron', minute='25,55', hour='0-23', misfire_grace_time=misfire_grace_time)
     scheduler.add_job(task_update_leads_full, 'cron', minute='25,55', hour='0-23', misfire_grace_time=misfire_grace_time)
     scheduler.add_job(task_update_budgets_full, 'cron', minute='25,55', hour='0-23', misfire_grace_time=misfire_grace_time)

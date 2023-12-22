@@ -16,7 +16,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Sends a message with available commands"""
     keyboard = [
         [
-            InlineKeyboardButton("🕐📄Invoices Partial", callback_data="Invoices Partial"),
+            InlineKeyboardButton("🕐📄Invoices P1", callback_data="Invoices Partial"),
+            InlineKeyboardButton("🕐📄Invoices P2", callback_data="Invoices Partial_2"),
             InlineKeyboardButton("📄Invoices Full", callback_data="Invoices Full"),
         ],
         [
@@ -57,27 +58,33 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await send_group_message(f"{data} update has been requested by @{username} via BOT")
     match data:
         case "Invoices Partial":
-            update_table(**PARAMETER_SETS["invoices_filter"])
+            status = update_table(**PARAMETER_SETS["invoices_filter"])
+        case "Invoices Partial_2":
+            status = update_table(**PARAMETER_SETS["invoices_filter_2"])
         case "Invoices Full":
-            update_table(**PARAMETER_SETS["invoices_full"])
+            status = update_table(**PARAMETER_SETS["invoices_full"])
         case "Students Partial":
-            update_table(**PARAMETER_SETS["students_filter"])
+            status = update_table(**PARAMETER_SETS["students_filter"])
         case "Students Full":
-            update_table(**PARAMETER_SETS["students_full"])
+            status = update_table(**PARAMETER_SETS["students_full"])
         case "Events Partial":
-            update_table(**PARAMETER_SETS["events_filter"])
+            status = update_table(**PARAMETER_SETS["events_filter"])
         case "Events Full":
-            update_table(**PARAMETER_SETS["events_full"])
+            status = update_table(**PARAMETER_SETS["events_full"])
         case "Groups Full":
-            update_table(**PARAMETER_SETS["groups_full"])
+            status = status = update_table(**PARAMETER_SETS["groups_full"])
         case "AMO Leads":
             update_table(**PARAMETER_SETS["leads_full"])
         case "AMO Budgets":
-            update_table(**PARAMETER_SETS["budgets_full"])
-    logger_tg.info(f"{data} update has been completed")
-    await send_group_message(f"{data} update has been completed. @{username}")
-
-    await context.bot.send_message(chat_id, text=f"Selected option: {data}. Finished")
+            status = update_table(**PARAMETER_SETS["budgets_full"])
+    if status:
+        logger_tg.info(f"{data} update has finished")
+        await send_group_message(f"{data} update has finished. @{username}")
+        await context.bot.send_message(chat_id, text=f"Selected option: {data}. Finished")
+    else:
+        logger_tg.info(f"ERROR: {data} update has failed")
+        await send_group_message(f"ERROR: {data} update has failed. @{username}")
+        await context.bot.send_message(chat_id, text=f"ERROR: Selected option: {data}. failed")        
 
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

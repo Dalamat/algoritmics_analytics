@@ -22,6 +22,8 @@ def get_urls(table):
         url = paths.bo_csv_url_events_filter
     elif table == "INVOICES UPDATES":
         url = f"https://backoffice.algoritmika.org/payment/manage/invoices?InvoiceWithPaymentSearch%5BpaymentUpdatedAt%5D={start_date}+-+{end_date}&InvoiceWithPaymentSearch%5BpaymentUpdatedAtStart%5D={start_date}&InvoiceWithPaymentSearch%5BpaymentUpdatedAtEnd%5D={end_date}&export=true&name=default&exportType=csv"
+    elif table == "INVOICES UPDATES_2":
+        url = f"https://backoffice.algoritmika.org/payment/manage/invoices?InvoiceWithPaymentSearch%5BinvoiceCreatedAt%5D={start_date}+-+{end_date}&InvoiceWithPaymentSearch%5BinvoiceCreatedAtStart%5D={start_date}&InvoiceWithPaymentSearch%5BinvoiceCreatedAtEnd%5D={end_date}&export=true&name=default&exportType=csv"
     elif table == "STUDENTS UPDATES":
         url = f"https://backoffice.algoritmika.org/student?StudentSearch%5Bid%5D=&StudentSearch%5Bupdated_at%5D={start_date}%20-%20{end_date}&export=true&name=default&exportType=csv"
     elif table == "PAYMENTS UPDATES":
