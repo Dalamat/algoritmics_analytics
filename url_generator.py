@@ -4,7 +4,7 @@ import paths
 def get_urls(table):
     # Get the current date and the date last_days days ago
     end_date = datetime.now().strftime('%Y-%m-%d')
-    last_days = 7 #Number of days before the current date to be donwloaded
+    last_days = 14 #Number of days before the current date to be donwloaded
     start_date = (datetime.now() - timedelta(days=last_days)).strftime('%Y-%m-%d')
 
     # Construct the URL with dynamic dates
