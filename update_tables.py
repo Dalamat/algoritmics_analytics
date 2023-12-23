@@ -17,7 +17,7 @@ PARAMETER_SETS = {
     "payments_full":{"output_path":paths.payments_csv_path,"table_name":"PAYMENTS FULL","db_script_function":"refresh_db_payments"},
     "events_filter":{"output_path":paths.events_filter_csv_path,"table_name":"EVENTS UPDATES","db_script_function":"update_db_events"},
     "invoices_filter":{"output_path":paths.invoices_filter_csv_path,"table_name":"INVOICES UPDATES","db_script_function":"update_db_invocies"},
-    "invoices_filter_2":{"output_path":paths.invoices_filter_2_csv_path,"table_name":"INVOICES UPDATES_2","db_script_function":"update_db_invocies"},
+    "invoices_filter_2":{"output_path":paths.invoices_filter_2_csv_path,"table_name":"INVOICES UPDATES_2","db_script_function":"update_db_invocies_2"},
     "students_filter":{"output_path":paths.students_filter_csv_path,"table_name":"STUDENTS UPDATES","db_script_function":"update_db_students"},
     "payments_filter":{"output_path":paths.payments_filter_csv_path,"table_name":"PAYMENTS UPDATES","db_script_function":"update_db_payments"},
     "leads_full":{"output_path":paths.leads_csv_path,"table_name":"LEADS FULL","db_script_function":"refresh_db_leads","source":"AMO"},

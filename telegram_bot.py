@@ -16,8 +16,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Sends a message with available commands"""
     keyboard = [
         [
-            InlineKeyboardButton("🕐📄Invoices P1", callback_data="Invoices Partial"),
-            InlineKeyboardButton("🕐📄Invoices P2", callback_data="Invoices Partial_2"),
+            InlineKeyboardButton("🕐📄Invoices Partial", callback_data="Invoices Partial"),
             InlineKeyboardButton("📄Invoices Full", callback_data="Invoices Full"),
         ],
         [
@@ -58,9 +57,9 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await send_group_message(f"{data} update has been requested by @{username} via BOT")
     match data:
         case "Invoices Partial":
-            status = update_table(**PARAMETER_SETS["invoices_filter"])
-        case "Invoices Partial_2":
-            status = update_table(**PARAMETER_SETS["invoices_filter_2"])
+            status_p1 = update_table(**PARAMETER_SETS["invoices_filter"])
+            status_p2 = update_table(**PARAMETER_SETS["invoices_filter_2"])
+            status = status_p1 and status_p2
         case "Invoices Full":
             status = update_table(**PARAMETER_SETS["invoices_full"])
         case "Students Partial":
