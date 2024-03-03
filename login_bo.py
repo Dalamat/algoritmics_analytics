@@ -35,8 +35,8 @@ def get_authenticated_session():
         return False
 
 def is_session_valid(session):
-    response = session.get(check_url)
-    return response.status_code == 200
+    response = session.get(check_url, allow_redirects=False)
+    return response.status_code == 200 and response.url == check_url
 
 
 def create_or_load_session():
@@ -62,3 +62,5 @@ def create_or_load_session():
     except Exception as e:
         logger.error(f"Error: {e}")
         return False
+    
+# create_or_load_session()
