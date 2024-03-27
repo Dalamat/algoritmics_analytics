@@ -49,7 +49,7 @@ def download_file(url, output_path, source="BO", chunk_size=1024*1024):
                 logger.info(f"CSV file downloaded successfully to {output_path}")
                 return True
         else:
-                logger.warning(f"Failed to obtain a respone for {output_path} in {source}")
+                logger.warning(f"Failed to obtain a response for {output_path} in {source}")
                 return False
     else:
         logger.warning(f"Failed to obtain a session for {source}")
